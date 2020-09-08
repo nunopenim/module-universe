@@ -1,4 +1,4 @@
-from tg_userbot import tgclient, MODULE_DESC, MODULE_DICT
+from userbot import tgclient, MODULE_DESC, MODULE_DICT
 from telethon.events import NewMessage
 
 @tgclient.on(NewMessage(pattern=r"^\.dummy$", outgoing=True))
