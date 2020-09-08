@@ -5,5 +5,8 @@ Copyright (C) 2020 Nuno Penim
 
 All rights and lefts reserved, under construction.
 
-> Licensed under [DBADPL-B](https://github.com/nunopenim/DBADPL-B)
+# Licensing
+
+Unless specified on the header of the file, all the components of this repo are
+licensed under [PEL]()
 
