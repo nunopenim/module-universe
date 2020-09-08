@@ -7,6 +7,5 @@ All rights and lefts reserved, under construction.
 
 # Licensing
 
-Unless specified on the header of the file, all the components of this repo are
-licensed under [PEL]()
+Unless specified on the header of the file, all the components of this repo are licensed under [PEL](https://github.com/nunopenim/module-universe/blob/master/LICENSE.md). A copy of all the Licenses included in this repo can be found under the "Licenses" directory.
 
