@@ -13,17 +13,17 @@ NHENTAI_URL = "https://nhentai.net/g/"
 
 @tgclient.on(NewMessage(pattern=r"^\.nhentai?: |$)(.*)", outgoing=True))
 async def text(msg):
-	commandArray = command.text.split(" ")
-	number = 0
-	del(commandArray[0])
-	if len(commandArray) != 1:
-        await mgs.edit("`Please insert just a single number to generate the nHentai URL`")
+    commandArray = msg.text.split(" ")
+    number = 0
+    del(commandArray[0])
+    if len(commandArray) != 1:
+        await msg.edit("`Please insert just a single number to generate the nHentai URL`")
         return
-	await mgs.edit("`Finding the specific URL...`")
-	try:
+    await msg.edit("`Finding the specific URL...`")
+    try:
         number = int(commandArray[0])
     except ValueError:
-		await mgs.edit("`Invalid Number!`")
+        await msg.edit("`Invalid Number!`")
         return
     time.sleep(1)
     await msg.edit("Here is your story: " + NHENTAI_URL + str(number) + "\nHave fun!")
