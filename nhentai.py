@@ -11,7 +11,7 @@ import time
 
 NHENTAI_URL = "https://nhentai.net/g/"
 
-@tgclient.on(NewMessage(pattern=r"^\.nhentai?: |$)(.*)", outgoing=True))
+@tgclient.on(NewMessage(pattern=r"^\.nhentai(?: |$)(.*)", outgoing=True))
 async def text(msg):
     commandArray = msg.text.split(" ")
     number = 0
