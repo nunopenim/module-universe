@@ -1,5 +1,5 @@
-# tguserbot-X module's universe
-The tguserbot-X project (name change pending) extra module repository
+# HyperUBot module's universe
+The HyperUBot project extra module repository
 
 Copyright (C) 2020 Nuno Penim
 
