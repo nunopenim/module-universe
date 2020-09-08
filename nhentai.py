@@ -5,9 +5,10 @@
 # You may not use this file or any of the content within it, unless in
 # compliance with the PE License
 
-from userbot import tgclient
+from userbot import tgclient, MODULE_DESC, MODULE_DICT
 from telethon.events import NewMessage
 import time
+from os.path import basename
 
 NHENTAI_URL = "https://nhentai.net/g/"
 
@@ -28,3 +29,9 @@ async def text(msg):
     time.sleep(1)
     await msg.edit("Here is your story: \n" + NHENTAI_URL + str(number) + "\n\nHave fun!", link_preview=True)
     return
+
+DESC = "nHentai module allows you to search for a specific story. Given a number, it will return a link to the story!\n\nBy Nuno Penim"
+USAGE = "`.nhentai` <number>\nUsage: Replies with the URL to the given story number, if it exists."
+
+MODULE_DESC.update({basename(__file__)[:-3]: DESC})
+MODULE_DICT.update({basename(__file__)[:-3]: USAGE})
