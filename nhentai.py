@@ -26,5 +26,5 @@ async def text(msg):
         await msg.edit("`Invalid Number!`")
         return
     time.sleep(1)
-    await msg.edit("Here is your story: " + NHENTAI_URL + str(number) + "\nHave fun!")
+    await msg.edit("Here is your story: \n" + NHENTAI_URL + str(number) + "\n\nHave fun!", link_preview=True)
     return
