@@ -14,10 +14,11 @@ from sys import executable
 
 @tgclient.on(NewMessage(pattern=r"^\.python(?: |$)(.*)", outgoing=True))
 async def python(command):
-    commands = command.pattern_match.group(1).split(" ", 1)
+    commandArray = command.text.split(" ")
     python_instruction = ""
-    for word in commands:
-        python_instruction += python_instruction + word + " "
+    for word in commandArray:
+        if not word == ".python":  # Probably I should find a way not to have this hardcoded
+            python_instruction += word + " "
     command_for_bash = executable + " -c " + '"' + python_instruction + '"'
     try:
         cmd_output = check_output(command_for_bash, shell=True).decode()
