@@ -14,7 +14,10 @@ from sys import executable
 
 @tgclient.on(NewMessage(pattern=r"^\.python(?: |$)(.*)", outgoing=True))
 async def python(command):
-    python_instruction = command.pattern_match.group(1).split(" ", 1)
+    commands = command.pattern_match.group(1).split(" ", 1)
+    python_instruction = ""
+    for word in commands:
+        python_instruction += python_instruction + word + " "
     command_for_bash = executable + " -c " + '"' + python_instruction + '"'
     try:
         cmd_output = check_output(command_for_bash, shell=True).decode()
