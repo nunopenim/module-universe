@@ -26,7 +26,7 @@ async def python(command):
     return
 
 DESCRIPTION = "This official add-on module is a Python interpreter. You can run small instructions."
-USAGE = "´.python´ <instruction(s)>\nUsage: Runs the specified python instruction."
+USAGE = "`.python` <instruction(s)>\nUsage: Runs the specified python instruction."
 
 MODULE_DESC.update({basename(__file__)[:-3]: DESCRIPTION})
 MODULE_DICT.update({basename(__file__)[:-3]: USAGE})
