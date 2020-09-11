@@ -73,7 +73,7 @@ async def superuser(command):
             return
         modName = cmd_args[1].lower()
         if modName not in ALL_MODULES:
-            await command.edit("Unknown module named `{}`. Not found!")
+            await command.edit("Unknown module named `{}`. Not found!".format(modName))
             return
         if modName in USER_MODULES:
             await command.edit("`Converting user module into system module...`")
@@ -94,7 +94,7 @@ async def superuser(command):
             await command.edit("The System module `{}` was successfully converted into a user module! Reboot recommended!".format(modName))
             return
     else:
-        await command.edit("Invalid argument! Please make sure it is **disclaimer** or **uninstaller**")
+        await command.edit("Invalid argument! Please make sure it is **disclaimer**, **remove** or **convert**")
         return
 
 DESC = "The Superuser module offers the possibility of more customization of the userbot. Be careful however, as this can break your userbot. The updater will likely break if you use this module!"
