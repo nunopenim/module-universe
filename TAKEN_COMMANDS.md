@@ -1,6 +1,6 @@
 # Taken Commands List, by the modules in module-universe
 
-This contains a short list of all the commands taken, besides the stock ones, to aid module developers in choosing a proper name for their command. Consider these names as taken, and you cannot use them anymore. Be creative :)
+This contains a short list of all the commands taken, besides the stock ones, to aid module developers in choosing a proper name for their command. Consider these names as taken, and you cannot use them anymore. Be creative :) A trick is to use only a single command, but multiple algorithms.
 
 ## Taken commands:
 
