@@ -1,8 +1,7 @@
 # HyperUBot module's universe
 The HyperUBot project extra module repository
 
-Copyright (C) 2020 Nuno Penim
-
+Copyright (C) 2020 Nuno Penim\
 Copyright (C) 2020 prototype74
 
 All rights reserved
