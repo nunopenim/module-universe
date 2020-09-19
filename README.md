@@ -16,7 +16,7 @@ Right now, since we are still trying to solve some stuff as the Userbot just lau
 
 ## Hosting your own community repo
 
-To host your own HyperUBot modules repository, for multiple (or not) modules, you will need to drop the .py files in a Release of your Repo. A full guide in doing this can be found [here](https://github.com/nunopenim/module-universe/blob/master/GUIDE_HostingYourOwnRepo.md). In here, we also have some recommendations to follow, such as opening a News Channel about your repo, or how to proceed with external dependencies, in case you need them.
+To host your own HyperUBot modules repository, for multiple (or not) modules, you will need to drop the ```.py``` files in a Release of your Repo. A full guide in doing this can be found [here](https://github.com/nunopenim/module-universe/blob/master/GUIDE_HostingYourOwnRepo.md). In here, we also have some recommendations to follow, such as opening a News Channel about your repo, or how to proceed with external dependencies, in case you need them.
 
 ## Licensing
 
