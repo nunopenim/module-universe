@@ -16,15 +16,15 @@ Right now, since we are still trying to solve some stuff as the Userbot just lau
 
 ## Are there any rules to develop to HyperUBot?
 
-Yes there are. The most important step that you should follow is that you should not have commands with the same names as other (official) modules. If however you want to make an extension of a module, say adding commands to an already existing module (a specific example would be .tban, temporarly bans a user, as an extension of the admin module), you should create a new module called ```admin_ext.py```. Like this, users can keep the stock admin module, and use your extensions. If however you want to improve the algorithm of a specific bot command, you can "root" your bot (by installing the superuser extension in modules-universe), to uninstall the admin module from system. Rooting your bot will likely break the updater though, so make your choices wisely.
+Yes there are. The most important step that you should follow is that you should not have commands with the same names as other (official) modules. If however you want to make an extension of a module, say adding commands to an already existing module (a specific example would be .tban, temporarily bans a user, as an extension of the admin module), you should create a new module called ```admin_ext.py```. Like this, users can keep the stock admin module, and use your extensions. If however you want to improve the algorithm of a specific bot command, you can "root" your bot (by installing the superuser extension in modules-universe), to uninstall the admin module from system. Rooting your bot will likely break the updater though, so make your choices wisely.
 
 Secondly, it is also important to mention that if any sort of malicious code has been found while applying to get your files in the module-universe will result in a permanent ban.
 
-The third rule is that the modules in modules-universe cannot break each other (for example, by having the same command names). There is a list of the taken commands inside this module, [available here](https://github.com/nunopenim/module-universe/blob/master/TAKEN_COMMANDS.md).
+The third rule is that the modules in modules-universe cannot break each other (for example, by having the same command names). There is a list of the taken commands inside this repository, [available here](https://github.com/nunopenim/module-universe/blob/master/DEV_TakenCommandsReference.md).
 
 ## Hosting your own community repo
 
-To host your own HyperUBot modules repository, for multiple (or not) modules, you will need to drop the ```.py``` files in a Release of your Repo. A full guide in doing this can be found [here](https://github.com/nunopenim/module-universe/blob/master/GUIDE_HostingYourOwnRepo.md). In here, we also have some recommendations to follow, such as opening a News Channel about your repo, or how to proceed with external dependencies, in case you need them.
+To host your own HyperUBot modules repository, for multiple (or not) modules, you will need to drop the ```.py``` files in a Release of your Repo. A full guide in doing this can be found [here](https://github.com/nunopenim/module-universe/blob/master/DEV_HostingYourOwnRepo.md). In here, we also have some recommendations to follow, such as opening a News Channel about your repo, or how to proceed with external dependencies, in case you need them.
 
 ## Licensing
 
