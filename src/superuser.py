@@ -29,7 +29,7 @@ async def superuser(command):
     cmd_args = command.pattern_match.group(1).split(" ", 1)
     if cmd_args[0].lower() == "disclaimer":
         await command.edit(DISCLAIMER)
-        f = open("./superuser.hbot", "w+")
+        f = open("./userbot/superuser.hbot", "w+")
         f.write("\n")
         f.close()
         WARNING_SHOWN = True
