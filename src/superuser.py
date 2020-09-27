@@ -14,7 +14,7 @@ from os.path import basename
 from shutil import copyfile
 
 DISCLAIMER = "**SUPERUSER MODULE DISCLAIMER**\n\nThis module allows you to make changes to the system directory of the userbot. These changes will be permanent, and cannot be revertible. They will also likely break the updating system! You have been warned!"
-WARNING_SHOWN = False
+WARNING_SHOWN = os.path.isfile("./superuser.hbot")
 
 if OS and OS.startswith("win"):
     USER_MODULES_DIR = ".\\userbot\\modules_user\\"
@@ -27,11 +27,14 @@ else:
 async def superuser(command):
     global WARNING_SHOWN
     cmd_args = command.pattern_match.group(1).split(" ", 1)
-    if cmd_args[0] == "disclaimer":
+    if cmd_args[0].lower() == "disclaimer":
         await command.edit(DISCLAIMER)
+        f = open("./superuser.hbot", "w+")
+        f.write("\n")
+        f.close()
         WARNING_SHOWN = True
         return
-    elif cmd_args[0] == "remove":
+    elif cmd_args[0].lower() == "remove":
         if not WARNING_SHOWN:
             await command.edit("For safety measures, the command will not run, please make sure you have read the disclaimer by typing `.sudo disclaimer`")
             return
@@ -61,7 +64,7 @@ async def superuser(command):
                 await event_log(command, "SUPERUSER", "The system module `{}` was removed successfully".format(modName))
             await command.edit("The system module `{}` was uninstalled successfully! Reboot recommended!".format(modName))
             return
-    elif cmd_args[0] == "convert":
+    elif cmd_args[0].lower() == "convert":
         if not WARNING_SHOWN:
             await command.edit("For safety measures, the command will not run, please make sure you have read the disclaimer by typing `.sudo disclaimer`")
             return
