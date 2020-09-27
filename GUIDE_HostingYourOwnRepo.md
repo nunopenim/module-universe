@@ -9,7 +9,7 @@
 
 ### 0.2 - Rules:
 
-Besides the common sense rules, such as "don't host malware", the modules you make and upload should not share the same name as the modules that are by default distributed with the bot and the modules in modules-universe. You cannot use existing commands in the modules universe and bot. There is already a [taken commands list](https://github.com/nunopenim/module-universe/blob/master/TAKEN_COMMANDS.md) in this repo's root directory
+Besides the common sense rules, such as "don't host malware", the modules you make and upload should not share the same name as the modules that are by default distributed with the bot and the modules in modules-universe. You cannot use existing commands in the modules universe and bot. There is already a [taken commands list](https://github.com/nunopenim/module-universe/blob/master/TAKEN_COMMANDS.md) in this repo's root directory (Soon there will be a bot one).
 
 ### 0.3 - Advices:
 
