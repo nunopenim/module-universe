@@ -11,14 +11,21 @@ import subprocess
 from userbot import tgclient, OS, MODULE_DESC, MODULE_DICT, LOGGING
 from userbot.include.aux_funcs import event_log
 from telethon.events import NewMessage
+import sys
 
 EMOJI_SUCCESS = "✔"
 EMOJI_FAILURE = "❌"
 EMOJI_INSTALLING = "⏳"
+
+if " " not in sys.executable:
+    EXECUTABLE = sys.executable
+else:
+    EXECUTABLE = '"' + sys.executable + '"'
+
 if OS and OS.startswith("win"):
     PIP_COMMAND = "pip install {}"
 else:
-    PIP_COMMAND = "python3 -m pip install {}"
+    PIP_COMMAND = EXECUTABLE + " -m pip install {}"
 
 @tgclient.on(NewMessage(pattern=r"^\.req (.*)", outgoing=True))
 async def req(event):
