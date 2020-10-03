@@ -53,3 +53,5 @@ This contains a short list of all the commands used in a stock HyperUBot distrib
  - ``.req`` - requirements installer module (req_installer.py)
  - ``.nhentai`` - nhentai module (nhentai.py)
  - ``.sudo`` - superuser module (superuser.py)
+ - ``.spam`` - spam module (spam.py)
+ - ``.dspam`` - spam module (spam.py)
