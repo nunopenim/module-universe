@@ -19,11 +19,15 @@ async def tag_someone(mention):
         await mention.edit("`Invalid user specified!`")
         return
     args = mention.text.split()
-    if len(args) != 3:
-        await mention.edit("`Too few/many arguments specified!`")
+    if len(args) < 3:
+        await mention.edit("`Too few arguments specified!`")
         return
+    args.pop(0)
+    args.pop(0)
     uid = user.id # Now we know shit works
-    uname = args[2]
+    uname = ""
+    for i in args:
+        uname += i + " "
     await mention.delete() # we need fresh message, editing doesnt work for mention
     await mention.respond(STR_MENT.format(uname, uid))
     return
