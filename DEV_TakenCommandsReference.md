@@ -55,3 +55,4 @@ This contains a short list of all the commands used in a stock HyperUBot distrib
  - ``.sudo`` - superuser module (superuser.py)
  - ``.spam`` - spam module (spam.py)
  - ``.dspam`` - spam module (spam.py)
+ - ``.mention`` - mention module (mention.py)
