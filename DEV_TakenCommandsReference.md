@@ -50,10 +50,13 @@ This contains a short list of all the commands used in a stock HyperUBot distrib
 
 ## Taken commands in modules-universe:
  - ``.dspam`` - spam module (spam.py)
+ - ``.lower`` - text_utils module (text_utils.py)
  - ``.mention`` - mention module (mention.py)
  - ``.nhentai`` - nhentai module (nhentai.py)
+ - ``.noformat`` - text_utils module (text_utils.py)
  - ``.python`` - python interpreter module (python.py)
  - ``.req`` - requirements installer module (req_installer.py)
  - ``.spam`` - spam module (spam.py)
  - ``.stksearch`` - sticker_search module (sticker_search.py)
  - ``.sudo`` - superuser module (superuser.py)
+ - ``.upper`` - text_utils module (text_utils.py)
