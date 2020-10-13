@@ -39,6 +39,7 @@ async def stksearch(message):
         count += 1
     await message.delete()
     await message.respond(reply)
+    return
 
 DESC = "The sticker_search module allows you to search for sticker packs! It is powered by Combot."
 USAGE = "`.stksearch` <name>\nUsage: Searches in Combot's Telegram Sticker Catalogue for sticker packs that contain the specified name."
