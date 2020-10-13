@@ -1,3 +1,10 @@
+# Copyright 2020 nunopenim @github
+#
+# Licensed under the PEL (Penim Enterprises License), v1.0
+#
+# You may not use this file or any of the content within it, unless in
+# compliance with the PE License
+
 from userbot import tgclient, MODULE_DESC, MODULE_DICT
 from telethon.events import NewMessage
 from telethon.errors.rpcerrorlist import MessageNotModifiedError
