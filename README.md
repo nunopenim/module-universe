@@ -22,6 +22,10 @@ Secondly, it is also important to mention that if any sort of malicious code has
 
 The third rule is that the modules in modules-universe cannot break each other (for example, by having the same command names). There is a list of the taken commands inside this repository, [available here](https://github.com/nunopenim/module-universe/blob/master/DEV_TakenCommandsReference.md).
 
+## Developing modules
+
+A small, introductory guide in how to develop your modules can be found [here](https://github.com/nunopenim/module-universe/blob/master/DEV_DevelopingModules.md). This explains the basics in how to setup your module's .py file, so that HyperUBot can load it and run it when it is called.
+
 ## Hosting your own community repo
 
 To host your own HyperUBot modules repository, for multiple (or not) modules, you will need to drop the ```.py``` files in a Release of your Repo. A full guide in doing this can be found [here](https://github.com/nunopenim/module-universe/blob/master/DEV_HostingYourOwnRepo.md). In here, we also have some recommendations to follow, such as opening a News Channel about your repo, or how to proceed with external dependencies, in case you need them.
