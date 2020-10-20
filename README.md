@@ -8,7 +8,7 @@ All rights reserved
 
 ## What is this?
 
-This is just a repo to keep the sources of the extra modules, that doubles down as the modules-universe for the HyperUBot project. If you are looking for the actual HyperUBot project, [check this](https://www.youtube.com/watch?v=TNHsw8TLf6Y) instead!  
+This is just a repo to keep the sources of the extra modules, that doubles down as the modules-universe for the HyperUBot project. If you are looking for the actual HyperUBot project, [check this](https://github.com/nunopenim/HyperUBot) instead!  
 
 ## Can I have my files hosted in the official repo?
 
