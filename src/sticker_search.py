@@ -8,13 +8,14 @@
 # Special thanks to HitaloSama @github, from HitsukiNetwork, for the
 # idea and partial implementation in his Group Manager Bot, @Hitsuki
 
-from userbot import tgclient, MODULE_DESC, MODULE_DICT
+from userbot import tgclient, MODULE_DESC, MODULE_DICT, MODULE_INFO
+from userbot.include.aux_funcs import module_info
 from telethon.events import NewMessage
 import requests
 from bs4 import BeautifulSoup as bs
 from os.path import basename
 
-# beautifulsoup4, lxml
+VERSION = "1.0.0"
 
 COMBOT_STICKERS_URL = "https://combot.org/telegram/stickers?q="
 
@@ -46,3 +47,4 @@ USAGE = "`.stksearch` <name>\nUsage: Searches in Combot's Telegram Sticker Catal
 
 MODULE_DESC.update({basename(__file__)[:-3]: DESC})
 MODULE_DICT.update({basename(__file__)[:-3]: USAGE})
+MODULE_INFO.update({basename(__file__)[:-3]: module_info(name="Sticker Searcher", version=VERSION)})
