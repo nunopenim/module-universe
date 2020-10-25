@@ -5,13 +5,15 @@
 # You may not use this file or any of the content within it, unless in
 # compliance with the PE License
 
-from userbot import tgclient, USER_MODULES, ALL_MODULES, OS, MODULE_DESC, MODULE_DICT, LOGGING
-from userbot.include.aux_funcs import event_log
+from userbot import tgclient, USER_MODULES, ALL_MODULES, OS, MODULE_DESC, MODULE_DICT, LOGGING, MODULE_INFO
+from userbot.include.aux_funcs import event_log, module_info
 from telethon.events import NewMessage
 import os
 import time
 from os.path import basename
 from shutil import copyfile
+
+VERSION = "1.0.0"
 
 DISCLAIMER = "**SUPERUSER MODULE DISCLAIMER**\n\nThis module allows you to make changes to the system directory of the userbot. These changes will be permanent, and cannot be revertible. They will also likely break the updating system! You have been warned!"
 WARNING_SHOWN = os.path.isfile("./superuser.hbot")
@@ -112,3 +114,4 @@ USAGE = "`.sudo disclaimer` \
 
 MODULE_DESC.update({basename(__file__)[:-3]: DESC})
 MODULE_DICT.update({basename(__file__)[:-3]: USAGE})
+MODULE_INFO.update({basename(__file__)[:-3]: module_info(name="SuperUser", version=VERSION)})
