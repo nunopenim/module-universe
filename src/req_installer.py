@@ -8,10 +8,12 @@
 
 from os.path import basename
 import subprocess
-from userbot import tgclient, OS, MODULE_DESC, MODULE_DICT, LOGGING
-from userbot.include.aux_funcs import event_log
+from userbot import tgclient, OS, MODULE_DESC, MODULE_DICT, LOGGING, MODULE_INFO
+from userbot.include.aux_funcs import event_log, module_info
 from telethon.events import NewMessage
 import sys
+
+VERSION = "1.0.0"
 
 EMOJI_SUCCESS = "✔"
 EMOJI_FAILURE = "❌"
@@ -59,3 +61,4 @@ USAGE = "`.req `<package names>\
 
 MODULE_DESC.update({basename(__file__)[:-3]: DESC})
 MODULE_DICT.update({basename(__file__)[:-3]: USAGE})
+MODULE_INFO.update({basename(__file__)[:-3]: module_info(name="Requirements Installer", version=VERSION)})
