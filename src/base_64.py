@@ -5,10 +5,13 @@
 # You may not use this file or any of the content within it, unless in
 # compliance with the PE License
 
-from userbot import tgclient, MODULE_DESC, MODULE_DICT
+from userbot import tgclient, MODULE_DESC, MODULE_DICT, MODULE_INFO
+from userbot.include.aux_funcs import module_info
 from telethon.events import NewMessage
 import base64
 from os.path import basename
+
+VERSION = "1.0.0"
 
 def encode(message_str):
     message_bytes = message_str.encode('ascii')
@@ -61,3 +64,4 @@ USAG = "`.b64enc` <reply/text>\
 
 MODULE_DESC.update({basename(__file__)[:-3]: DESC})
 MODULE_DICT.update({basename(__file__)[:-3]: USAG})
+MODULE_INFO.update({basename(__file__)[:-3]: module_info(name="Base64 utilities", version=VERSION)})
