@@ -5,10 +5,13 @@
 # You may not use this file or any of the content within it, unless in
 # compliance with the PE License
 
-from userbot import tgclient, MODULE_DESC, MODULE_DICT
+from userbot import tgclient, MODULE_DESC, MODULE_DICT, MODULE_INFO
+from userbot.include.aux_funcs import module_info
 from telethon.events import NewMessage
 import time
 from os.path import basename
+
+VERSION = "1.0.0"
 
 NHENTAI_URL = "https://nhentai.net/g/"
 
@@ -35,3 +38,4 @@ USAGE = "`.nhentai` <number>\nUsage: Replies with the URL to the given story num
 
 MODULE_DESC.update({basename(__file__)[:-3]: DESC})
 MODULE_DICT.update({basename(__file__)[:-3]: USAGE})
+MODULE_INFO.update({basename(__file__)[:-3]: module_info(name="nHentai", version=VERSION)})
