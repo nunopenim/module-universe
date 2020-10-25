@@ -6,11 +6,14 @@
 # You may not use this file or any of the content within it, unless in
 # compliance with the PE License
 
-from userbot import tgclient, MODULE_DESC, MODULE_DICT
+from userbot import tgclient, MODULE_DESC, MODULE_DICT, MODULE_INFO
+from userbot.include.aux_funcs import module_info
 from telethon.events import NewMessage
 from subprocess import check_output, CalledProcessError
 from os.path import basename
 from sys import executable
+
+VERSION = "1.0.0"
 
 @tgclient.on(NewMessage(pattern=r"^\.python(?: |$)(.*)", outgoing=True))
 async def python(command):
@@ -34,3 +37,4 @@ USAGE = "`.python` <instruction(s)>\nUsage: Runs the specified python instructio
 
 MODULE_DESC.update({basename(__file__)[:-3]: DESCRIPTION})
 MODULE_DICT.update({basename(__file__)[:-3]: USAGE})
+MODULE_INFO.update({basename(__file__)[:-3]: module_info(name="Python Interpreter", version=VERSION)})
