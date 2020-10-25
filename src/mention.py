@@ -5,10 +5,12 @@
 # You may not use this file or any of the content within it, unless in
 # compliance with the PE License
 
-from userbot import tgclient, MODULE_DESC, MODULE_DICT
+from userbot import tgclient, MODULE_DESC, MODULE_DICT, MODULE_INFO
 from telethon.events import NewMessage
-from userbot.include.aux_funcs import fetch_user
+from userbot.include.aux_funcs import fetch_user, module_info
 from os.path import basename
+
+VERSION = "1.0.0"
 
 STR_MENT = "[{}](tg://user?id={})"
 
@@ -37,3 +39,4 @@ USAG = "`.mention` <tag> <text>\nUsage: Tags a user under a different text other
 
 MODULE_DESC.update({basename(__file__)[:-3]: DESC})
 MODULE_DICT.update({basename(__file__)[:-3]: USAG})
+MODULE_INFO.update({basename(__file__)[:-3]: module_info(name="Mention", version=VERSION)})
