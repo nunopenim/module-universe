@@ -7,25 +7,23 @@
 # compliance with the PE License
 
 from userbot import tgclient, MODULE_DESC, MODULE_DICT, MODULE_INFO
-from userbot.include.aux_funcs import module_info
+from userbot.include.aux_funcs import module_info, shell_runner
 from telethon.events import NewMessage
-from subprocess import check_output, CalledProcessError
 from os.path import basename
 from sys import executable
 
-VERSION = "1.0.0"
+VERSION = "1.1.0"
 
 @tgclient.on(NewMessage(pattern=r"^\.python(?: |$)(.*)", outgoing=True))
 async def python(command):
     commandArray = command.text.split(" ")
+    del (commandArray[0])
     python_instruction = ""
     for word in commandArray:
-        if not word == ".python":  # Probably I should find a way not to have this hardcoded
-            python_instruction += word + " "
-    command_for_bash = executable + " -c " + '"' + python_instruction + '"'
-    try:
-        cmd_output = check_output(command_for_bash, shell=True).decode()
-    except CalledProcessError:
+        python_instruction += word + " "
+    command_for_bash = [executable, " -c ", '"' + python_instruction + '"']
+    cmd_output = shell_runner(command_for_bash)
+    if cmd_output is None:
         cmd_output = "Error executing instruction! Most likely you used \" instead of '. This is a known issue."
     output = "**Python instruction:** `" + python_instruction + "`\n\n"
     output +=  "**Result: **\n`" + cmd_output + "`"
