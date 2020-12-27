@@ -8,18 +8,18 @@
 # Special thanks to HitaloSama @github, from HitsukiNetwork, for the
 # idea and partial implementation in his Group Manager Bot, @Hitsuki
 
-from userbot import tgclient, MODULE_DESC, MODULE_DICT, MODULE_INFO
+from userbot import MODULE_DESC, MODULE_DICT, MODULE_INFO
 from userbot.include.aux_funcs import module_info
-from telethon.events import NewMessage
+from userbot.sysutils.event_handler import EventHandler
 import requests
 from bs4 import BeautifulSoup as bs
 from os.path import basename
 
-VERSION = "1.0.0"
-
+VERSION = "1.1.0"
+ehandler = EventHandler()
 COMBOT_STICKERS_URL = "https://combot.org/telegram/stickers?q="
 
-@tgclient.on(NewMessage(pattern=r"^\.stksearch(?: |$)(.*)", outgoing=True))
+@ehandler.on(pattern=r"^\.stksearch(?: |$)(.*)", outgoing=True)
 async def stksearch(message):
     arg = message.pattern_match.group(1)
     if len(arg) == 0:
@@ -42,8 +42,10 @@ async def stksearch(message):
     await message.respond(reply)
     return
 
-DESC = "The sticker_search module allows you to search for sticker packs! It is powered by Combot."
-USAGE = "`.stksearch` <name>\nUsage: Searches in Combot's Telegram Sticker Catalogue for sticker packs that contain the specified name."
+DESC = "The sticker_search module allows you to search for sticker packs! "\
+       "It is powered by Combot."
+USAGE = "`.stksearch` <name>\nUsage: Searches in Combot's Telegram Sticker "\
+        "Catalogue for sticker packs that contain the specified name."
 
 MODULE_DESC.update({basename(__file__)[:-3]: DESC})
 MODULE_DICT.update({basename(__file__)[:-3]: USAGE})

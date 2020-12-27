@@ -6,15 +6,16 @@
 # You may not use this file or any of the content within it, unless in
 # compliance with the PE License
 
-from userbot import tgclient, MODULE_DESC, MODULE_DICT, MODULE_INFO
+from userbot import MODULE_DESC, MODULE_DICT, MODULE_INFO
 from userbot.include.aux_funcs import module_info, shell_runner
-from telethon.events import NewMessage
+from userbot.sysutils.event_handler import EventHandler
 from os.path import basename
 from sys import executable
 
-VERSION = "1.1.0"
+VERSION = "1.2.0"
+ehandler = EventHandler()
 
-@tgclient.on(NewMessage(pattern=r"^\.python(?: |$)(.*)", outgoing=True))
+@ehandler.on(pattern=r"^\.python(?: |$)(.*)", outgoing=True)
 async def python(command):
     commandArray = command.text.split(" ")
     del (commandArray[0])
@@ -31,7 +32,9 @@ async def python(command):
     return
 
 DESCRIPTION = "This official add-on module is a Python interpreter. You can run small instructions."
-USAGE = "`.python` <instruction(s)>\nUsage: Runs the specified python instruction.\n\n**Notice:** Please use ' as the string delimiters instead of \", or errors could happen with the command processor."
+USAGE = "`.python` <instruction(s)>\nUsage: Runs the specified python instruction."\
+        "\n\n**Notice:** Please use ' as the string delimiters instead of \", or errors "\
+        "could happen with the command processor."
 
 MODULE_DESC.update({basename(__file__)[:-3]: DESCRIPTION})
 MODULE_DICT.update({basename(__file__)[:-3]: USAGE})

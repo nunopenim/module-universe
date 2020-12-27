@@ -5,17 +5,17 @@
 # You may not use this file or any of the content within it, unless in
 # compliance with the PE License
 
-from userbot import tgclient, MODULE_DESC, MODULE_DICT, MODULE_INFO
+from userbot import MODULE_DESC, MODULE_DICT, MODULE_INFO
 from userbot.include.aux_funcs import module_info
-from telethon.events import NewMessage
+from userbot.sysutils.event_handler import EventHandler
 import time
 from os.path import basename
 
-VERSION = "1.0.0"
-
+VERSION = "1.1.0"
+ehandler = EventHandler()
 NHENTAI_URL = "https://nhentai.net/g/"
 
-@tgclient.on(NewMessage(pattern=r"^\.nhentai(?: |$)(.*)", outgoing=True))
+@ehandler.on(pattern=r"^\.nhentai(?: |$)(.*)", outgoing=True)
 async def text(msg):
     commandArray = msg.text.split(" ")
     number = 0
@@ -33,8 +33,10 @@ async def text(msg):
     await msg.edit("Here is your story: \n" + NHENTAI_URL + str(number) + "\n\nHave fun!", link_preview=True)
     return
 
-DESC = "nHentai module allows you to search for a specific story. Given a number, it will return a link to the story!\n\nBy Nuno Penim"
-USAGE = "`.nhentai` <number>\nUsage: Replies with the URL to the given story number, if it exists."
+DESC = "nHentai module allows you to search for a specific story. Given a number, "\
+       "it will return a link to the story!\n\nBy Nuno Penim"
+USAGE = "`.nhentai` <number>\nUsage: Replies with the URL to the given story number, "\
+        "if it exists."
 
 MODULE_DESC.update({basename(__file__)[:-3]: DESC})
 MODULE_DICT.update({basename(__file__)[:-3]: USAGE})

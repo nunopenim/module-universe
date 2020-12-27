@@ -5,13 +5,14 @@
 # You may not use this file or any of the content within it, unless in
 # compliance with the PE License
 
-from userbot import tgclient, MODULE_DESC, MODULE_DICT, MODULE_INFO
+from userbot import MODULE_DESC, MODULE_DICT, MODULE_INFO
 from userbot.include.aux_funcs import module_info
-from telethon.events import NewMessage
+from userbot.sysutils.event_handler import EventHandler
 import random
 from os.path import basename
 
-VERSION = "1.0.0"
+VERSION = "1.1.0"
+ehandler = EventHandler()
 
 GREETINGS = [
     "Top o' the morning!",
@@ -28,7 +29,8 @@ INSULTS = [
     "Even a trained chimp does everything better than you.",
     "You know what is the difference between you and cancer? Cancer evolves.",
     "If you were in a room with Hitler and Stalin and I had a gun, I would shoot you twice.",
-    "Your girlfriend could have picked a better man, like Saddam Hussein or an indonesian pimp with lice and bad breath.",
+    "Your girlfriend could have picked a better man, like Saddam Hussein or an indonesian "\
+    "pimp with lice and bad breath.",
     "If stupidity was taxed, you would be all stamped.",
     "Light travels faster than sound, which explains why you seemed bright until you speak.",
     "Your teeth are like stars, light years away and yellow.",
@@ -40,17 +42,18 @@ INSULTS = [
     "I heard you are very kind to animals, so please return that face to the gorilla.",
     "You got your head so far up your ass, you can chew food twice."]
 
-@tgclient.on(NewMessage(pattern=r"^\.hi$", outgoing=True))
+@ehandler.on(pattern=r"^\.hi$", outgoing=True)
 async def hello(event):
     await event.edit(random.choice(GREETINGS))
     return
 
-@tgclient.on(NewMessage(pattern=r"^\.insult$", outgoing=True))
+@ehandler.on(pattern=r"^\.insult$", outgoing=True)
 async def insult(event):
     await event.edit(random.choice(INSULTS))
     return
 
-DESC = "The text replies module contains programmed sentences that are randomly chosen. Check the usage to see what sentences are these."
+DESC = "The text replies module contains programmed sentences that are randomly chosen. "\
+       "Check the usage to see what sentences are these."
 USAGE = "`.hi`\nUsage: Greet people.\n\n`.insult`\nUsage: insults people."
 
 MODULE_DESC.update({basename(__file__)[:-3]: DESC})

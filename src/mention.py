@@ -5,16 +5,16 @@
 # You may not use this file or any of the content within it, unless in
 # compliance with the PE License
 
-from userbot import tgclient, MODULE_DESC, MODULE_DICT, MODULE_INFO
-from telethon.events import NewMessage
+from userbot import MODULE_DESC, MODULE_DICT, MODULE_INFO
+from userbot.sysutils.event_handler import EventHandler
 from userbot.include.aux_funcs import fetch_user, module_info
 from os.path import basename
 
-VERSION = "1.0.0"
-
+VERSION = "1.1.0"
+ehandler = EventHandler()
 STR_MENT = "[{}](tg://user?id={})"
 
-@tgclient.on(NewMessage(pattern=r"^\.mention(?: |$)(.*)$", outgoing=True))
+@ehandler.on(pattern=r"^\.mention(?: |$)(.*)$", outgoing=True)
 async def tag_someone(mention):
     user = await fetch_user(mention)
     if user is None:

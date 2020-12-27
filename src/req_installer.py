@@ -8,13 +8,14 @@
 
 from os.path import basename
 import subprocess
-from userbot import tgclient, OS, MODULE_DESC, MODULE_DICT, LOGGING, MODULE_INFO
+from userbot import OS, MODULE_DESC, MODULE_DICT, MODULE_INFO
 from userbot.include.aux_funcs import event_log, module_info
-from telethon.events import NewMessage
+from userbot.sysutils.configuration import getConfig
+from userbot.sysutils.event_handler import EventHandler
 import sys
 
-VERSION = "1.0.0"
-
+VERSION = "1.1.0"
+ehandler = EventHandler()
 EMOJI_SUCCESS = "✔"
 EMOJI_FAILURE = "❌"
 EMOJI_INSTALLING = "⏳"
@@ -29,7 +30,7 @@ if OS and OS.startswith("win"):
 else:
     PIP_COMMAND = EXECUTABLE + " -m pip install {}"
 
-@tgclient.on(NewMessage(pattern=r"^\.req (.*)", outgoing=True))
+@ehandler.on(pattern=r"^\.req (.*)", outgoing=True)
 async def req(event):
     reqs = event.pattern_match.group(1).split()
     message = f"Installing {len(reqs)} package(s):\n"
@@ -41,23 +42,28 @@ async def req(event):
             bout = subprocess.check_output(PIP_COMMAND.format(r).split())
             output = bout.decode('ascii')
             if f"Requirement already satisfied: {r}" in output:
-                message = message.replace(f"{EMOJI_INSTALLING} {r}",f"{EMOJI_FAILURE} {r} (package already installed)")
+                message = message.replace(f"{EMOJI_INSTALLING} {r}",f"{EMOJI_FAILURE} {r} "\
+                                           "(package already installed)")
             else:
                 message = message.replace(f"{EMOJI_INSTALLING} {r}",f"{EMOJI_SUCCESS} {r}")
                 success = success + 1
         except subprocess.CalledProcessError:
             message = message.replace(f"{EMOJI_INSTALLING} {r}",f"{EMOJI_FAILURE} {r}")
         await event.edit(message.rstrip())
-    message = message.replace("Installing ",f"Installed {success}/")
-    if LOGGING:
-        await event_log(event, "REQUIREMENT INSTALLER", custom_text="{} of {} python packages queued were installed successfully!".format(success ,len(reqs)))
+    message = message.replace("Installing ", f"Installed {success}/")
+    if getConfig("LOGGING"):
+        await event_log(event, "REQUIREMENT INSTALLER", custom_text="{} of {} python "\
+                        "packages queued were installed successfully!".format(success, len(reqs)))
     await event.edit(message.rstrip())
     return
 
-DESC = "This module allows you to install pip packages. Sometimes extra modules require other pip packages that are not present in requirements.txt. If such happens, the bot can be effectively bricked! It is your duty to read the README file avaliable in the Repo of the module, in case it needs any module!"
+DESC = "This module allows you to install pip packages. Sometimes extra modules require "\
+       "other pip packages that are not present in requirements.txt. If such happens, "\
+       "the bot can be effectively bricked! It is your duty to read the README file avaliable "\
+       "in the Repo of the module, in case it needs any module!"
 
-USAGE = "`.req `<package names>\
-        \nUsage: installs (or attempts to install) the specified pip package names."
+USAGE = "`.req `<package names>"\
+        "\nUsage: installs (or attempts to install) the specified pip package names."
 
 MODULE_DESC.update({basename(__file__)[:-3]: DESC})
 MODULE_DICT.update({basename(__file__)[:-3]: USAGE})
