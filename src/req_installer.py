@@ -6,14 +6,13 @@
 # You may not use this file or any of the content within it, unless in
 # compliance with the PE License
 
-from userbot import OS
 from userbot.include.aux_funcs import event_log
 from userbot.sysutils.configuration import getConfig
 from userbot.sysutils.event_handler import EventHandler
 import subprocess
 import sys
 
-VERSION = "1.2.0"
+VERSION = "1.2.1"
 
 try:
     # >= 4.0.0
@@ -50,10 +49,7 @@ if " " not in sys.executable:
 else:
     EXECUTABLE = '"' + sys.executable + '"'
 
-if OS and OS.startswith("win"):
-    PIP_COMMAND = "pip install {}"
-else:
-    PIP_COMMAND = EXECUTABLE + " -m pip install {}"
+PIP_COMMAND = EXECUTABLE + " -m pip install {}"
 
 @ehandler.on(command="req", hasArgs=True, outgoing=True)
 async def req(event):
