@@ -45,10 +45,10 @@ DISCLAIMER = "**SUPERUSER MODULE DISCLAIMER**\n\nThis module allows you to make 
              "the system directory of the userbot. These changes will be permanent, and "\
              "cannot be revertible. They will also likely break the updating system! You have been warned!"
 
-WARNING_SHOWN = os.path.isfile(os.join.path(".", "superuser.hbot"))
+WARNING_SHOWN = os.path.isfile(os.path.join(".", "superuser.hbot"))
 LOGGING = getConfig("LOGGING")
-USER_MODULES_DIR = os.join.path(".", "userbot", "modules_user")
-MODULES_DIR = os.join.path(".", "userbot", "modules")
+USER_MODULES_DIR = os.path.join(".", "userbot", "modules_user")
+MODULES_DIR = os.path.join(".", "userbot", "modules")
 
 @ehandler.on(command="sudo", hasArgs=True, outgoing=True)
 async def superuser(command):
@@ -56,7 +56,7 @@ async def superuser(command):
     cmd_args = command.pattern_match.group(1).split(" ", 1)
     if cmd_args[0].lower() == "disclaimer":
         await command.edit(DISCLAIMER)
-        f = open(os.join.path(".", "userbot", "superuser.hbot"), "w+")
+        f = open(os.path.join(".", "userbot", "superuser.hbot"), "w+")
         f.write("\n")
         f.close()
         WARNING_SHOWN = True
@@ -77,7 +77,7 @@ async def superuser(command):
             return
         if modName in getUserModules():
             await command.edit("`Uninstalling user module...`")
-            os.remove(os.join.path(USER_MODULES_DIR, modName + ".py"))
+            os.remove(os.path.join(USER_MODULES_DIR, modName + ".py"))
             time.sleep(1)
             if LOGGING:
                 await event_log(command, "SUPERUSER", "The user module `{}` was removed "\
@@ -86,7 +86,7 @@ async def superuser(command):
                                "Reboot recommended!".format(modName))
         else:
             await command.edit("`Uninstalling system module...`")
-            os.remove(os.join.path(MODULES_DIR, modName + ".py"))
+            os.remove(os.path.join(MODULES_DIR, modName + ".py"))
             time.sleep(1)
             if LOGGING:
                 await event_log(command, "SUPERUSER", "The system module `{}` was removed "\
@@ -110,8 +110,8 @@ async def superuser(command):
             return
         if modName in getUserModules():
             await command.edit("`Converting user module into system module...`")
-            copyfile(os.join.path(USER_MODULES_DIR, modName + ".py"), os.join.path(MODULES_DIR, modName + ".py"))
-            os.remove(os.join.path(USER_MODULES_DIR, modName + ".py"))
+            copyfile(os.path.join(USER_MODULES_DIR, modName + ".py"), os.path.join(MODULES_DIR, modName + ".py"))
+            os.remove(os.path.join(USER_MODULES_DIR, modName + ".py"))
             time.sleep(1)
             if LOGGING:
                 await event_log(command, "SUPERUSER", "The User module `{}` was successfully "\
@@ -120,8 +120,8 @@ async def superuser(command):
                                "System module! Reboot recommended!".format(modName))
         else:
             await command.edit("`Converting system module into user module...`")
-            copyfile(os.join.path(MODULES_DIR, modName + ".py"), os.join.path(USER_MODULES_DIR, modName + ".py"))
-            os.remove(os.join.path(MODULES_DIR, modName + ".py"))
+            copyfile(os.path.join(MODULES_DIR, modName + ".py"), os.path.join(USER_MODULES_DIR, modName + ".py"))
+            os.remove(os.path.join(MODULES_DIR, modName + ".py"))
             time.sleep(1)
             if LOGGING:
                 await event_log(command, "SUPERUSER", "The System module `{}` was successfully "\
