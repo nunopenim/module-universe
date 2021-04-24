@@ -5,7 +5,6 @@
 # You may not use this file or any of the content within it, unless in
 # compliance with the PE License
 
-from userbot import OS
 from userbot.include.aux_funcs import event_log
 from userbot.sysutils.configuration import getConfig
 from userbot.sysutils.event_handler import EventHandler
@@ -13,7 +12,7 @@ from shutil import copyfile
 import os
 import time
 
-VERSION = "1.2.0"
+VERSION = "1.2.1"
 
 try:
     # >= 4.0.0
@@ -45,18 +44,11 @@ ehandler = EventHandler()
 DISCLAIMER = "**SUPERUSER MODULE DISCLAIMER**\n\nThis module allows you to make changes to "\
              "the system directory of the userbot. These changes will be permanent, and "\
              "cannot be revertible. They will also likely break the updating system! You have been warned!"
-if OS and OS.startswith("win"):
-    WARNING_SHOWN = os.path.isfile(".\\superuser.hbot")
-else:
-    WARNING_SHOWN = os.path.isfile("./superuser.hbot")
-LOGGING = getConfig("LOGGING")
 
-if OS and OS.startswith("win"):
-    USER_MODULES_DIR = ".\\userbot\\modules_user\\"
-    MODULES_DIR = ".\\userbot\\modules\\"
-else:
-    USER_MODULES_DIR = "./userbot/modules_user/"
-    MODULES_DIR = "./userbot/modules/"
+WARNING_SHOWN = os.path.isfile(os.join.path(".", "superuser.hbot"))
+LOGGING = getConfig("LOGGING")
+USER_MODULES_DIR = os.join.path(".", "userbot", "modules_user")
+MODULES_DIR = os.join.path(".", "userbot", "modules")
 
 @ehandler.on(command="sudo", hasArgs=True, outgoing=True)
 async def superuser(command):
@@ -64,14 +56,10 @@ async def superuser(command):
     cmd_args = command.pattern_match.group(1).split(" ", 1)
     if cmd_args[0].lower() == "disclaimer":
         await command.edit(DISCLAIMER)
-        if OS and OS.startswith("win"):
-            f = open(".\\userbot\\superuser.hbot", "w+")
-        else:
-            f = open("./userbot/superuser.hbot", "w+")
+        f = open(os.join.path(".", "userbot", "superuser.hbot"), "w+")
         f.write("\n")
         f.close()
         WARNING_SHOWN = True
-        return
     elif cmd_args[0].lower() == "remove":
         if not WARNING_SHOWN:
             await command.edit("For safety measures, the command will not run, please make "\
@@ -89,24 +77,22 @@ async def superuser(command):
             return
         if modName in getUserModules():
             await command.edit("`Uninstalling user module...`")
-            os.remove(USER_MODULES_DIR + modName + ".py")
+            os.remove(os.join.path(USER_MODULES_DIR, modName + ".py"))
             time.sleep(1)
             if LOGGING:
                 await event_log(command, "SUPERUSER", "The user module `{}` was removed "\
                                 "successfully".format(modName))
             await command.edit("The user module `{}` was uninstalled successfully! "\
                                "Reboot recommended!".format(modName))
-            return
         else:
             await command.edit("`Uninstalling system module...`")
-            os.remove(MODULES_DIR + modName + ".py")
+            os.remove(os.join.path(MODULES_DIR, modName + ".py"))
             time.sleep(1)
             if LOGGING:
                 await event_log(command, "SUPERUSER", "The system module `{}` was removed "\
                                 "successfully".format(modName))
             await command.edit("The system module `{}` was uninstalled successfully! "\
                                "Reboot recommended!".format(modName))
-            return
     elif cmd_args[0].lower() == "convert":
         if not WARNING_SHOWN:
             await command.edit("For safety measures, the command will not run, please make "\
@@ -124,29 +110,27 @@ async def superuser(command):
             return
         if modName in getUserModules():
             await command.edit("`Converting user module into system module...`")
-            copyfile(USER_MODULES_DIR + modName + ".py", MODULES_DIR + modName + ".py")
-            os.remove(USER_MODULES_DIR + modName + ".py")
+            copyfile(os.join.path(USER_MODULES_DIR, modName + ".py"), os.join.path(MODULES_DIR, modName + ".py"))
+            os.remove(os.join.path(USER_MODULES_DIR, modName + ".py"))
             time.sleep(1)
             if LOGGING:
                 await event_log(command, "SUPERUSER", "The User module `{}` was successfully "\
                                 "converted into a System module!".format(modName))
             await command.edit("The User module `{}` was successfully converted into a "\
                                "System module! Reboot recommended!".format(modName))
-            return
         else:
             await command.edit("`Converting system module into user module...`")
-            copyfile(MODULES_DIR + modName + ".py", USER_MODULES_DIR + modName + ".py")
-            os.remove(MODULES_DIR + modName + ".py")
+            copyfile(os.join.path(MODULES_DIR, modName + ".py"), os.join.path(USER_MODULES_DIR, modName + ".py"))
+            os.remove(os.join.path(MODULES_DIR, modName + ".py"))
             time.sleep(1)
             if LOGGING:
                 await event_log(command, "SUPERUSER", "The System module `{}` was successfully "\
                                 "converted into a User module!".format(modName))
             await command.edit("The System module `{}` was successfully converted into a "\
                                "user module! Reboot recommended!".format(modName))
-            return
     else:
         await command.edit("Invalid argument! Please make sure it is **disclaimer**, **remove** or **convert**")
-        return
+    return
 
 DESC = "The Superuser module offers the possibility of more customization of the userbot. "\
        "Be careful however, as this can break your userbot. The updater will likely "\
