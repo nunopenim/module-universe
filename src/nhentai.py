@@ -5,17 +5,40 @@
 # You may not use this file or any of the content within it, unless in
 # compliance with the PE License
 
-from userbot import MODULE_DESC, MODULE_DICT, MODULE_INFO
-from userbot.include.aux_funcs import module_info
 from userbot.sysutils.event_handler import EventHandler
 import time
-from os.path import basename
 
-VERSION = "1.1.0"
+VERSION = "1.2.0"
+
+try:
+    # >= 4.0.0
+    from userbot.version import VERSION as hubot_version
+except:
+    # <= 3.0.4
+    from userbot import VERSION as hubot_version
+
+#temp solution
+def isSupportedVersion(version: str) -> bool:
+    try:
+        bot_ver = tuple(map(int, hubot_version.split(".")))
+        req_ver = tuple(map(int, version.split(".")))
+        if bot_ver >= req_ver:
+            return True
+    except:
+        pass
+    return False
+
+if not isSupportedVersion("4.0.0"):
+    # required version
+    raise ValueError(f"Unsupported HyperUBot version ({hubot_version}). "\
+                      "Minimum required version is 4.0.0")
+
+from userbot.sysutils.registration import (register_cmd_usage, register_module_desc, register_module_info)
+
 ehandler = EventHandler()
 NHENTAI_URL = "https://nhentai.net/g/"
 
-@ehandler.on(pattern=r"^\.nhentai(?: |$)(.*)", outgoing=True)
+@ehandler.on(command="nhentai", hasArgs=True, outgoing=True)
 async def text(msg):
     commandArray = msg.text.split(" ")
     number = 0
@@ -35,9 +58,13 @@ async def text(msg):
 
 DESC = "nHentai module allows you to search for a specific story. Given a number, "\
        "it will return a link to the story!\n\nBy Nuno Penim"
-USAGE = "`.nhentai` <number>\nUsage: Replies with the URL to the given story number, "\
-        "if it exists."
 
-MODULE_DESC.update({basename(__file__)[:-3]: DESC})
-MODULE_DICT.update({basename(__file__)[:-3]: USAGE})
-MODULE_INFO.update({basename(__file__)[:-3]: module_info(name="nHentai", version=VERSION)})
+register_cmd_usage("nhentai", "<number>", "Replies with the URL to the given "\
+                   "story number, if it exists.")
+
+register_module_desc(DESC)
+register_module_info(
+    name="nHentai",
+    authors="nunopenim",
+    version=VERSION
+)

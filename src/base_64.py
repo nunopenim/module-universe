@@ -5,13 +5,36 @@
 # You may not use this file or any of the content within it, unless in
 # compliance with the PE License
 
-from userbot import MODULE_DESC, MODULE_DICT, MODULE_INFO
-from userbot.include.aux_funcs import module_info
 from userbot.sysutils.event_handler import EventHandler
 import base64
-from os.path import basename
 
-VERSION = "1.1.0"
+VERSION = "1.2.0"
+
+try:
+    # >= 4.0.0
+    from userbot.version import VERSION as hubot_version
+except:
+    # <= 3.0.4
+    from userbot import VERSION as hubot_version
+
+#temp solution
+def isSupportedVersion(version: str) -> bool:
+    try:
+        bot_ver = tuple(map(int, hubot_version.split(".")))
+        req_ver = tuple(map(int, version.split(".")))
+        if bot_ver >= req_ver:
+            return True
+    except:
+        pass
+    return False
+
+if not isSupportedVersion("4.0.0"):
+    # required version
+    raise ValueError(f"Unsupported HyperUBot version ({hubot_version}). "\
+                      "Minimum required version is 4.0.0")
+
+from userbot.sysutils.registration import (register_cmd_usage, register_module_desc, register_module_info)
+
 ehandler = EventHandler()
 
 def encode(message_str):
@@ -26,7 +49,7 @@ def decode(base64_str):
     message_str = message_bytes.decode('ascii')
     return message_str
 
-@ehandler.on(pattern=r"^\.b64enc(?: |$)(.*)", outgoing=True)
+@ehandler.on(command="b64enc", hasArgs=True, outgoing=True)
 async def encode_me(event):
     if event.reply_to_msg_id:
         msg = await event.get_reply_message()
@@ -40,7 +63,7 @@ async def encode_me(event):
     await event.edit("**BASE64 ENCODING**\n\nYour text: `{}`\n\nEncoded text: `{}`".format(text, encoded))
     return
 
-@ehandler.on(pattern=r"^\.b64dec(?: |$)(.*)", outgoing=True)
+@ehandler.on(command="b64dec", hasArgs=True, outgoing=True)
 async def decode_me(event):
     if event.reply_to_msg_id:
         msg = await event.get_reply_message()
@@ -57,12 +80,14 @@ async def decode_me(event):
     await event.edit("**BASE64 DECODING**\n\nBase64 text: `{}`\n\nDecoded message: `{}`".format(text, decoded))
     return
 
-DESC = "The base_64 module allows you to encode and decode messages in base64."
-USAG = "`.b64enc` <reply/text>"\
-       "\nUsage: Encodes the given message in base64."\
-       "\n\n`.b64dec` <reply/text>"\
-       "\nUsage: Decodes the given message from base64."
 
-MODULE_DESC.update({basename(__file__)[:-3]: DESC})
-MODULE_DICT.update({basename(__file__)[:-3]: USAG})
-MODULE_INFO.update({basename(__file__)[:-3]: module_info(name="Base64 utilities", version=VERSION)})
+DESC = "The base_64 module allows you to encode and decode messages in base64."
+register_cmd_usage("b64enc", "<reply/text>", "Encodes the given message in base64.")
+register_cmd_usage("b64dec", "<reply/text>", "Decodes the given message from base64.")
+
+register_module_desc(DESC)
+register_module_info(
+    name="Base64 utilities",
+    authors="nunopenim",
+    version=VERSION
+)

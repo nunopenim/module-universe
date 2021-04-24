@@ -5,17 +5,40 @@
 # You may not use this file or any of the content within it, unless in
 # compliance with the PE License
 
-from userbot import MODULE_DESC, MODULE_DICT, MODULE_INFO
-from userbot.include.aux_funcs import module_info
 from userbot.sysutils.event_handler import EventHandler
 from telethon.tl.types import InputMediaDice
 import time
-from os.path import basename
 
-VERSION = "1.1.0"
+VERSION = "1.2.0"
+
+try:
+    # >= 4.0.0
+    from userbot.version import VERSION as hubot_version
+except:
+    # <= 3.0.4
+    from userbot import VERSION as hubot_version
+
+#temp solution
+def isSupportedVersion(version: str) -> bool:
+    try:
+        bot_ver = tuple(map(int, hubot_version.split(".")))
+        req_ver = tuple(map(int, version.split(".")))
+        if bot_ver >= req_ver:
+            return True
+    except:
+        pass
+    return False
+
+if not isSupportedVersion("4.0.0"):
+    # required version
+    raise ValueError(f"Unsupported HyperUBot version ({hubot_version}). "\
+                      "Minimum required version is 4.0.0")
+
+from userbot.sysutils.registration import (register_cmd_usage, register_module_desc, register_module_info)
+
 ehandler = EventHandler()
 
-@ehandler.on(pattern=r"^\.fakedice(?: |$)(.*)", outgoing=True)
+@ehandler.on(command="fakedice", hasArgs=True, outgoing=True)
 async def fake_dice(rolling):
     argums = rolling.text.split(" ")
     if len(argums) != 2:
@@ -43,11 +66,15 @@ async def fake_dice(rolling):
 DESC = "This module allows you to launch a dice with any destination value you desire."\
        "\n**WARNING:** This module sends and deletes messages repeatedly, in order to get "\
        "the correct value you want. Use at your own risk as you could be flagged for spam!"
-USG = "`.fakedice` <value>"\
-      "\nUsage: Launches a fake dice with the specified value"\
-      "\n\n**WARNING:** This module sends and deletes messages repeatedly, "\
-      "in order to get the correct value you want. Use at your own risk as you could be flagged for spam!"
 
-MODULE_DESC.update({basename(__file__)[:-3]: DESC})
-MODULE_DICT.update({basename(__file__)[:-3]: USG})
-MODULE_INFO.update({basename(__file__)[:-3]: module_info(name="Fake Dice", version=VERSION)})
+register_cmd_usage("fakedice", "<value>", "Launches a fake dice with the specified value.\n\n"\
+                   "**WARNING:** This module sends and deletes messages repeatedly, "\
+                   "in order to get the correct value you want. Use at your own risk as "\
+                   "you could be flagged for spam!")
+
+register_module_desc(DESC)
+register_module_info(
+    name="Fake Dice",
+    authors="nunopenim",
+    version=VERSION
+)

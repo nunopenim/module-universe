@@ -5,16 +5,39 @@
 # You may not use this file or any of the content within it, unless in
 # compliance with the PE License
 
-from userbot import MODULE_DESC, MODULE_DICT, MODULE_INFO
-from userbot.include.aux_funcs import module_info
 from userbot.sysutils.event_handler import EventHandler
 from telethon.errors.rpcerrorlist import MessageNotModifiedError
-from os.path import basename
 
-VERSION = "1.1.0"
+VERSION = "1.2.0"
+
+try:
+    # >= 4.0.0
+    from userbot.version import VERSION as hubot_version
+except:
+    # <= 3.0.4
+    from userbot import VERSION as hubot_version
+
+#temp solution
+def isSupportedVersion(version: str) -> bool:
+    try:
+        bot_ver = tuple(map(int, hubot_version.split(".")))
+        req_ver = tuple(map(int, version.split(".")))
+        if bot_ver >= req_ver:
+            return True
+    except:
+        pass
+    return False
+
+if not isSupportedVersion("4.0.0"):
+    # required version
+    raise ValueError(f"Unsupported HyperUBot version ({hubot_version}). "\
+                      "Minimum required version is 4.0.0")
+
+from userbot.sysutils.registration import (register_cmd_usage, register_module_desc, register_module_info)
+
 ehandler = EventHandler()
 
-@ehandler.on(pattern=r"^\.upper(?: |$)(.*)", outgoing=True)
+@ehandler.on(command="upper", hasArgs=True, outgoing=True)
 async def upper_case(event):
     args = event.pattern_match.group(1)
     rply_msg = await event.get_reply_message()
@@ -29,7 +52,7 @@ async def upper_case(event):
     await event.edit(text.upper())
     return
 
-@ehandler.on(pattern=r"^\.lower(?: |$)(.*)", outgoing=True)
+@ehandler.on(command="lower", hasArgs=True, outgoing=True)
 async def lower_case(event):
     args = event.pattern_match.group(1)
     rply_msg = await event.get_reply_message()
@@ -44,7 +67,7 @@ async def lower_case(event):
     await event.edit(text.lower())
     return
 
-@ehandler.on(pattern=r"^\.noformat(?: |$)(.*)", outgoing=True)
+@ehandler.on(command="noformat", outgoing=True)
 async def unformat(event):
     rply_msg = await event.get_reply_message()
     if rply_msg:
@@ -61,13 +84,15 @@ async def unformat(event):
 
 DESC = "The text_utils module offers utilities to edit text, such as convert a "\
        "message to upper case, lower case or unformat it!"
-USAGE = "`.upper` <text/reply>"\
-        "\nUsage: Converts the specified text to upper case."\
-        "\n\n`.lower` <text/reply>"\
-        "\nUsage: Converts the specified text to lower case."\
-        "\n\n`.noformat`"\
-        "\nUsage: Unformats the replied message (removes bold, italic, monospace, etc...)."
 
-MODULE_DESC.update({basename(__file__)[:-3]: DESC})
-MODULE_DICT.update({basename(__file__)[:-3]: USAGE})
-MODULE_INFO.update({basename(__file__)[:-3]: module_info(name="Text Utilities", version=VERSION)})
+register_cmd_usage("upper", "<text/reply>", "Converts the specified text to upper case.")
+register_cmd_usage("lower", "<text/reply>", "Decodes the given message from base64.")
+register_cmd_usage("noformat", None, "Unformats the replied message "\
+                   "(removes bold, italic, monospace, etc...).")
+
+register_module_desc(DESC)
+register_module_info(
+    name="Text Utilities",
+    authors="nunopenim",
+    version=VERSION
+)

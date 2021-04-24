@@ -8,18 +8,57 @@
 # Special thanks to HitaloSama @github, from HitsukiNetwork, for the
 # idea and partial implementation in his Group Manager Bot, @Hitsuki
 
-from userbot import MODULE_DESC, MODULE_DICT, MODULE_INFO
-from userbot.include.aux_funcs import module_info
 from userbot.sysutils.event_handler import EventHandler
+from logging import getLogger
+from subprocess import check_call
 import requests
-from bs4 import BeautifulSoup as bs
-from os.path import basename
+import sys
 
-VERSION = "1.1.0"
-ehandler = EventHandler()
+VERSION = "1.2.0"
+
+try:
+    # >= 4.0.0
+    from userbot.version import VERSION as hubot_version
+except:
+    # <= 3.0.4
+    from userbot import VERSION as hubot_version
+
+#temp solution
+def isSupportedVersion(version: str) -> bool:
+    try:
+        bot_ver = tuple(map(int, hubot_version.split(".")))
+        req_ver = tuple(map(int, version.split(".")))
+        if bot_ver >= req_ver:
+            return True
+    except:
+        pass
+    return False
+
+if not isSupportedVersion("4.0.0"):
+    # required version
+    raise ValueError(f"Unsupported HyperUBot version ({hubot_version}). "\
+                      "Minimum required version is 4.0.0")
+
+from userbot.sysutils.registration import (register_cmd_usage, register_module_desc, register_module_info)
+
+log = getLogger(__name__)
+
+while True:
+    try:
+        from bs4 import BeautifulSoup as bs
+        break
+    except:
+        PY_EXEC = sys.executable if not " " in sys.executable else '"' + sys.executable + '"'
+        log.info("Installing BeautifulSoup...")
+        try:
+            check_call([PY_EXEC, "-m", "pip", "install", "beautifulsoup4"])
+        except Exception as e:
+            raise ImportError(f"Failed to install BeautifulSoup: {e}")
+
+ehandler = EventHandler(log)
 COMBOT_STICKERS_URL = "https://combot.org/telegram/stickers?q="
 
-@ehandler.on(pattern=r"^\.stksearch(?: |$)(.*)", outgoing=True)
+@ehandler.on(command="stksearch", hasArgs=True, outgoing=True)
 async def stksearch(message):
     arg = message.pattern_match.group(1)
     if len(arg) == 0:
@@ -44,9 +83,13 @@ async def stksearch(message):
 
 DESC = "The sticker_search module allows you to search for sticker packs! "\
        "It is powered by Combot."
-USAGE = "`.stksearch` <name>\nUsage: Searches in Combot's Telegram Sticker "\
-        "Catalogue for sticker packs that contain the specified name."
 
-MODULE_DESC.update({basename(__file__)[:-3]: DESC})
-MODULE_DICT.update({basename(__file__)[:-3]: USAGE})
-MODULE_INFO.update({basename(__file__)[:-3]: module_info(name="Sticker Searcher", version=VERSION)})
+register_cmd_usage("stksearch", "<name>", "Searches in Combot's Telegram Sticker "\
+                   "Catalogue for sticker packs that contain the specified name.")
+
+register_module_desc(DESC)
+register_module_info(
+    name="Sticker Searcher",
+    authors="nunopenim",
+    version=VERSION
+)

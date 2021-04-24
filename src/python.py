@@ -6,16 +6,40 @@
 # You may not use this file or any of the content within it, unless in
 # compliance with the PE License
 
-from userbot import MODULE_DESC, MODULE_DICT, MODULE_INFO
-from userbot.include.aux_funcs import module_info, shell_runner
+from userbot.include.aux_funcs import shell_runner
 from userbot.sysutils.event_handler import EventHandler
-from os.path import basename
 from sys import executable
 
-VERSION = "1.2.0"
+VERSION = "1.3.0"
+
+try:
+    # >= 4.0.0
+    from userbot.version import VERSION as hubot_version
+except:
+    # <= 3.0.4
+    from userbot import VERSION as hubot_version
+
+#temp solution
+def isSupportedVersion(version: str) -> bool:
+    try:
+        bot_ver = tuple(map(int, hubot_version.split(".")))
+        req_ver = tuple(map(int, version.split(".")))
+        if bot_ver >= req_ver:
+            return True
+    except:
+        pass
+    return False
+
+if not isSupportedVersion("4.0.0"):
+    # required version
+    raise ValueError(f"Unsupported HyperUBot version ({hubot_version}). "\
+                      "Minimum required version is 4.0.0")
+
+from userbot.sysutils.registration import (register_cmd_usage, register_module_desc, register_module_info)
+
 ehandler = EventHandler()
 
-@ehandler.on(pattern=r"^\.python(?: |$)(.*)", outgoing=True)
+@ehandler.on(command="python", hasArgs=True, outgoing=True)
 async def python(command):
     commandArray = command.text.split(" ")
     del (commandArray[0])
@@ -32,10 +56,13 @@ async def python(command):
     return
 
 DESCRIPTION = "This official add-on module is a Python interpreter. You can run small instructions."
-USAGE = "`.python` <instruction(s)>\nUsage: Runs the specified python instruction."\
-        "\n\n**Notice:** Please use ' as the string delimiters instead of \", or errors "\
-        "could happen with the command processor."
+register_cmd_usage("python", "<instruction(s)>", "Runs the specified python instruction.\n\n"\
+                   "**Notice:** Please use ' as the string delimiters instead of \", or errors "\
+                   "could happen with the command processor.")
 
-MODULE_DESC.update({basename(__file__)[:-3]: DESCRIPTION})
-MODULE_DICT.update({basename(__file__)[:-3]: USAGE})
-MODULE_INFO.update({basename(__file__)[:-3]: module_info(name="Python Interpreter", version=VERSION)})
+register_module_desc(DESCRIPTION)
+register_module_info(
+    name="Python Interpreter",
+    authors="nunopenim, prototype74",
+    version=VERSION
+)

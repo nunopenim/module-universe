@@ -5,18 +5,42 @@
 # You may not use this file or any of the content within it, unless in
 # compliance with the PE License
 
-from userbot import MODULE_DESC, MODULE_DICT, MODULE_INFO
-from userbot.include.aux_funcs import module_info, event_log
+from userbot.include.aux_funcs import event_log
 from userbot.sysutils.configuration import getConfig
 from userbot.sysutils.event_handler import EventHandler
-from os.path import basename
 from asyncio import sleep
 
-VERSION = "1.1.0"
+VERSION = "1.2.0"
+
+try:
+    # >= 4.0.0
+    from userbot.version import VERSION as hubot_version
+except:
+    # <= 3.0.4
+    from userbot import VERSION as hubot_version
+
+#temp solution
+def isSupportedVersion(version: str) -> bool:
+    try:
+        bot_ver = tuple(map(int, hubot_version.split(".")))
+        req_ver = tuple(map(int, version.split(".")))
+        if bot_ver >= req_ver:
+            return True
+    except:
+        pass
+    return False
+
+if not isSupportedVersion("4.0.0"):
+    # required version
+    raise ValueError(f"Unsupported HyperUBot version ({hubot_version}). "\
+                      "Minimum required version is 4.0.0")
+
+from userbot.sysutils.registration import (register_cmd_usage, register_module_desc, register_module_info)
+
 ehandler = EventHandler()
 LOGGING = getConfig("LOGGING")
 
-@ehandler.on(pattern=r"^\.dspam(?: |$)(.*)", outgoing=True)
+@ehandler.on(command="dspam", hasArgs=True, outgoing=True)
 async def delay_spammer(msg):
     args = msg.text.split()
     if len(args) < 4:
@@ -51,7 +75,7 @@ async def delay_spammer(msg):
                 "It spammed the message`{}` {} times, with a delay of {} seconds".format(msg_to_spam, msg_counter, delay))
     return
 
-@ehandler.on(pattern=r"^\.spam(?: |$)(.*)", outgoing=True)
+@ehandler.on(command="spam", hasArgs=True, outgoing=True)
 async def spammer(msg):
     args = msg.text.split()
     if len(args) < 3:
@@ -87,11 +111,14 @@ DESC = "This module offers tools to spam faster. Although the name and infinite 
        "It's designed for purposes of joking.\n\n**WARNING**: Use it at your own risk. "\
        "If you abuse this module, Telegram can (and will) restrict your account!"
 
-USAGE = "`.spam` <number of times> <message>\nUsage: Spams a message the number of times specified"\
-        "\n\n`.dspam` <number of times> <delay> <message>\nUsage: Spams a message the number of "\
-        "times specified, with an interval of <delay> seconds"\
-        "\n\n**WARNING**: Use this module at your own risk. It can get you banned and restricted from Telegram!"
+register_cmd_usage("spam", "<number of times> <message>", "Spams a message the number of times specified")
+register_cmd_usage("dspam", "<number of times> <delay> <message>", "Spams a message the number of "\
+                   "times specified, with an interval of <delay> seconds")
 
-MODULE_DESC.update({basename(__file__)[:-3]: DESC})
-MODULE_DICT.update({basename(__file__)[:-3]: USAGE})
-MODULE_INFO.update({basename(__file__)[:-3]: module_info(name="Spam", version=VERSION)})
+register_module_desc(DESC)
+register_module_info(
+    name="Spam",
+    authors="nunopenim",
+    version=VERSION
+)
+

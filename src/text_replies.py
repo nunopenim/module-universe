@@ -5,13 +5,36 @@
 # You may not use this file or any of the content within it, unless in
 # compliance with the PE License
 
-from userbot import MODULE_DESC, MODULE_DICT, MODULE_INFO
-from userbot.include.aux_funcs import module_info
 from userbot.sysutils.event_handler import EventHandler
 import random
-from os.path import basename
 
-VERSION = "1.1.0"
+VERSION = "1.2.0"
+
+try:
+    # >= 4.0.0
+    from userbot.version import VERSION as hubot_version
+except:
+    # <= 3.0.4
+    from userbot import VERSION as hubot_version
+
+#temp solution
+def isSupportedVersion(version: str) -> bool:
+    try:
+        bot_ver = tuple(map(int, hubot_version.split(".")))
+        req_ver = tuple(map(int, version.split(".")))
+        if bot_ver >= req_ver:
+            return True
+    except:
+        pass
+    return False
+
+if not isSupportedVersion("4.0.0"):
+    # required version
+    raise ValueError(f"Unsupported HyperUBot version ({hubot_version}). "\
+                      "Minimum required version is 4.0.0")
+
+from userbot.sysutils.registration import (register_cmd_usage, register_module_desc, register_module_info)
+
 ehandler = EventHandler()
 
 GREETINGS = [
@@ -42,20 +65,25 @@ INSULTS = [
     "I heard you are very kind to animals, so please return that face to the gorilla.",
     "You got your head so far up your ass, you can chew food twice."]
 
-@ehandler.on(pattern=r"^\.hi$", outgoing=True)
+@ehandler.on(command="hi", outgoing=True)
 async def hello(event):
     await event.edit(random.choice(GREETINGS))
     return
 
-@ehandler.on(pattern=r"^\.insult$", outgoing=True)
+@ehandler.on(command="insult", outgoing=True)
 async def insult(event):
     await event.edit(random.choice(INSULTS))
     return
 
 DESC = "The text replies module contains programmed sentences that are randomly chosen. "\
        "Check the usage to see what sentences are these."
-USAGE = "`.hi`\nUsage: Greet people.\n\n`.insult`\nUsage: insults people."
 
-MODULE_DESC.update({basename(__file__)[:-3]: DESC})
-MODULE_DICT.update({basename(__file__)[:-3]: USAGE})
-MODULE_INFO.update({basename(__file__)[:-3]: module_info(name="Text Replies", version=VERSION)})
+register_cmd_usage("hi", None, "Greet people.")
+register_cmd_usage("insult", None, "insults people.")
+
+register_module_desc(DESC)
+register_module_info(
+    name="Text Replies",
+    authors="nunopenim",
+    version=VERSION
+)

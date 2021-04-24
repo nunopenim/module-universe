@@ -5,16 +5,42 @@
 # You may not use this file or any of the content within it, unless in
 # compliance with the PE License
 
-from userbot import USER_MODULES, ALL_MODULES, OS, MODULE_DESC, MODULE_DICT, MODULE_INFO
-from userbot.include.aux_funcs import event_log, module_info
+from userbot import OS
+from userbot.include.aux_funcs import event_log
 from userbot.sysutils.configuration import getConfig
 from userbot.sysutils.event_handler import EventHandler
+from shutil import copyfile
 import os
 import time
-from os.path import basename
-from shutil import copyfile
 
-VERSION = "1.1.0"
+VERSION = "1.2.0"
+
+try:
+    # >= 4.0.0
+    from userbot.version import VERSION as hubot_version
+except:
+    # <= 3.0.4
+    from userbot import VERSION as hubot_version
+
+#temp solution
+def isSupportedVersion(version: str) -> bool:
+    try:
+        bot_ver = tuple(map(int, hubot_version.split(".")))
+        req_ver = tuple(map(int, version.split(".")))
+        if bot_ver >= req_ver:
+            return True
+    except:
+        pass
+    return False
+
+if not isSupportedVersion("4.0.0"):
+    # required version
+    raise ValueError(f"Unsupported HyperUBot version ({hubot_version}). "\
+                      "Minimum required version is 4.0.0")
+
+from userbot.sysutils.registration import (getAllModules, getUserModules, register_cmd_usage,
+                                           register_module_desc, register_module_info)
+
 ehandler = EventHandler()
 DISCLAIMER = "**SUPERUSER MODULE DISCLAIMER**\n\nThis module allows you to make changes to "\
              "the system directory of the userbot. These changes will be permanent, and "\
@@ -32,7 +58,7 @@ else:
     USER_MODULES_DIR = "./userbot/modules_user/"
     MODULES_DIR = "./userbot/modules/"
 
-@ehandler.on(pattern=r"^\.sudo(?: |$)(.*)", outgoing=True)
+@ehandler.on(command="sudo", hasArgs=True, outgoing=True)
 async def superuser(command):
     global WARNING_SHOWN
     cmd_args = command.pattern_match.group(1).split(" ", 1)
@@ -58,10 +84,10 @@ async def superuser(command):
             await command.edit("For safety reasons you can only uninstall one module at a time!")
             return
         modName = cmd_args[1].lower()
-        if modName not in ALL_MODULES:
+        if modName not in getAllModules():
             await command.edit("Unknown module named `{}`. Uninstallation halted!")
             return
-        if modName in USER_MODULES:
+        if modName in getUserModules():
             await command.edit("`Uninstalling user module...`")
             os.remove(USER_MODULES_DIR + modName + ".py")
             time.sleep(1)
@@ -93,10 +119,10 @@ async def superuser(command):
             await command.edit("For safety reasons you can only convert one module at a time!")
             return
         modName = cmd_args[1].lower()
-        if modName not in ALL_MODULES:
+        if modName not in getAllModules():
             await command.edit("Unknown module named `{}`. Not found!".format(modName))
             return
-        if modName in USER_MODULES:
+        if modName in getUserModules():
             await command.edit("`Converting user module into system module...`")
             copyfile(USER_MODULES_DIR + modName + ".py", MODULES_DIR + modName + ".py")
             os.remove(USER_MODULES_DIR + modName + ".py")
@@ -125,16 +151,15 @@ async def superuser(command):
 DESC = "The Superuser module offers the possibility of more customization of the userbot. "\
        "Be careful however, as this can break your userbot. The updater will likely "\
        "break if you use this module!"
-USAGE = "`.sudo disclaimer` "\
-        "\nUsage: Shows the warning message, and acknowledges the user has read it."\
-        "\n\n`.sudo remove` <package_name>"\
-        "\nUsage: Removes the specified package from the system."\
-        "\n\n`.sudo convert` <package_name>"\
-        "\nUsage: Converts a User Module in a System Module and vice-versa"\
-        "\n\n**WARNING:** This has potential of permanently destroying your userbot. "\
-        "The updater system might break, so proceed with caution!"
         
+register_cmd_usage("sudo", "<disclaimer/remove <package_name>/convert <package_name>>",
+                   "[disclaimer] Shows the warning message, and acknowledges the user has read it.\n"\
+                   "[remove] Removes the specified package from the system.\n"\
+                   "[convert] Converts a User Module in a System Module and vice-versa.")
 
-MODULE_DESC.update({basename(__file__)[:-3]: DESC})
-MODULE_DICT.update({basename(__file__)[:-3]: USAGE})
-MODULE_INFO.update({basename(__file__)[:-3]: module_info(name="SuperUser", version=VERSION)})
+register_module_desc(DESC)
+register_module_info(
+    name="SuperUser",
+    authors="nunopenim",
+    version=VERSION
+)
