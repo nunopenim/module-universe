@@ -8,7 +8,7 @@
 from userbot.sysutils.event_handler import EventHandler
 import time
 
-VERSION = "1.2.0"
+VERSION = "1.2.1"
 
 try:
     # >= 4.0.0
@@ -36,7 +36,6 @@ if not isSupportedVersion("4.0.0"):
 from userbot.sysutils.registration import (register_cmd_usage, register_module_desc, register_module_info)
 
 ehandler = EventHandler()
-NHENTAI_URL = "https://nhentai.net/g/"
 
 @ehandler.on(command="nhentai", hasArgs=True, outgoing=True)
 async def text(msg):
@@ -53,7 +52,7 @@ async def text(msg):
         await msg.edit("`Invalid Number!`")
         return
     time.sleep(1)
-    await msg.edit("Here is your story: \n" + NHENTAI_URL + str(number) + "\n\nHave fun!", link_preview=True)
+    await msg.edit(f"Here is your story: \nhttps://nhentai.net/g/{number}\n\nHave fun!", link_preview=True)
     return
 
 DESC = "nHentai module allows you to search for a specific story. Given a number, "\
