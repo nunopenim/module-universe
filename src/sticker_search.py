@@ -8,13 +8,7 @@
 # Special thanks to HitaloSama @github, from HitsukiNetwork, for the
 # idea and partial implementation in his Group Manager Bot, @Hitsuki
 
-from userbot.sysutils.event_handler import EventHandler
-from logging import getLogger
-from subprocess import check_call
-import requests
-import sys
-
-VERSION = "1.2.0"
+VERSION = "1.2.1"
 
 try:
     # >= 4.0.0
@@ -23,7 +17,7 @@ except:
     # <= 3.0.4
     from userbot import VERSION as hubot_version
 
-#temp solution
+
 def isSupportedVersion(version: str) -> bool:
     try:
         bot_ver = tuple(map(int, hubot_version.split(".")))
@@ -34,29 +28,30 @@ def isSupportedVersion(version: str) -> bool:
         pass
     return False
 
-if not isSupportedVersion("4.0.0"):
-    # required version
-    raise ValueError(f"Unsupported HyperUBot version ({hubot_version}). "\
-                      "Minimum required version is 4.0.0")
 
-from userbot.sysutils.registration import (register_cmd_usage, register_module_desc, register_module_info)
+if not isSupportedVersion("5.0.1"):
+    raise ValueError(f"Unsupported HyperUBot version ({hubot_version}). "
+                      "Minimum required version is 5.0.1")
+
+from userbot.include.pip_utils import checkPkgByDist, installPkg  # noqa: E402
+from userbot.sysutils.event_handler import EventHandler  # noqa: E402
+from userbot.sysutils.registration import (register_cmd_usage,  # noqa: E402
+                                           register_module_desc,  # noqa: E402
+                                           register_module_info)  # noqa: E402
+from logging import getLogger  # noqa: E402
+from subprocess import check_call  # noqa: E402
+import requests  # noqa: E402
+import sys  # noqa: E402
+
+if not checkPkgByDist("beautifulsoup4"):
+    installPkg("beautifulsoup4")
+
+from bs4 import BeautifulSoup as bs  # noqa: E402
 
 log = getLogger(__name__)
-
-while True:
-    try:
-        from bs4 import BeautifulSoup as bs
-        break
-    except:
-        PY_EXEC = sys.executable if not " " in sys.executable else '"' + sys.executable + '"'
-        log.info("Installing BeautifulSoup...")
-        try:
-            check_call([PY_EXEC, "-m", "pip", "install", "beautifulsoup4"])
-        except Exception as e:
-            raise ImportError(f"Failed to install BeautifulSoup: {e}")
-
 ehandler = EventHandler(log)
 COMBOT_STICKERS_URL = "https://combot.org/telegram/stickers?q="
+
 
 @ehandler.on(command="stksearch", hasArgs=True, outgoing=True)
 async def stksearch(message):
@@ -81,11 +76,14 @@ async def stksearch(message):
     await message.respond(reply)
     return
 
-DESC = "The sticker_search module allows you to search for sticker packs! "\
-       "It is powered by Combot."
 
-register_cmd_usage("stksearch", "<name>", "Searches in Combot's Telegram Sticker "\
-                   "Catalogue for sticker packs that contain the specified name.")
+DESC = ("The sticker_search module allows you to search for sticker packs! "
+        "It is powered by Combot.")
+
+register_cmd_usage("stksearch",
+                   "<name>",
+                   ("Searches in Combot's Telegram Sticker Catalogue for "
+                    "sticker packs that contain the specified name."))
 
 register_module_desc(DESC)
 register_module_info(

@@ -6,13 +6,7 @@
 # You may not use this file or any of the content within it, unless in
 # compliance with the PE License
 
-from userbot.include.aux_funcs import event_log
-from userbot.sysutils.configuration import getConfig
-from userbot.sysutils.event_handler import EventHandler
-import subprocess
-import sys
-
-VERSION = "1.2.1"
+VERSION = "1.2.2"
 
 try:
     # >= 4.0.0
@@ -21,7 +15,7 @@ except:
     # <= 3.0.4
     from userbot import VERSION as hubot_version
 
-#temp solution
+
 def isSupportedVersion(version: str) -> bool:
     try:
         bot_ver = tuple(map(int, hubot_version.split(".")))
@@ -32,14 +26,22 @@ def isSupportedVersion(version: str) -> bool:
         pass
     return False
 
-if not isSupportedVersion("4.0.0"):
-    # required version
-    raise ValueError(f"Unsupported HyperUBot version ({hubot_version}). "\
-                      "Minimum required version is 4.0.0")
+if not isSupportedVersion("5.0.1"):
+    raise ValueError(f"Unsupported HyperUBot version ({hubot_version}). "
+                      "Minimum required version is 5.0.1")
 
-from userbot.sysutils.registration import (register_cmd_usage, register_module_desc, register_module_info)
+from userbot.include.aux_funcs import event_log  # noqa: E402
+from userbot.sysutils.configuration import getConfig  # noqa: E402
+from userbot.sysutils.event_handler import EventHandler  # noqa: E402
+from userbot.sysutils.registration import (register_cmd_usage,  # noqa: E402
+                                           register_module_desc,  # noqa: E402
+                                           register_module_info)  # noqa: E402
+from logging import getLogger  # noqa: E402
+import subprocess  # noqa: E402
+import sys  # noqa: E402
 
-ehandler = EventHandler()
+log = getLogger(__name__)
+ehandler = EventHandler(log)
 EMOJI_SUCCESS = "✔"
 EMOJI_FAILURE = "❌"
 EMOJI_INSTALLING = "⏳"
@@ -50,6 +52,7 @@ else:
     EXECUTABLE = '"' + sys.executable + '"'
 
 PIP_COMMAND = EXECUTABLE + " -m pip install {}"
+
 
 @ehandler.on(command="req", hasArgs=True, outgoing=True)
 async def req(event):
@@ -63,28 +66,36 @@ async def req(event):
             bout = subprocess.check_output(PIP_COMMAND.format(r).split())
             output = bout.decode('ascii')
             if f"Requirement already satisfied: {r}" in output:
-                message = message.replace(f"{EMOJI_INSTALLING} {r}",f"{EMOJI_FAILURE} {r} "\
-                                           "(package already installed)")
+                message = message.replace(f"{EMOJI_INSTALLING} {r}",
+                                          f"{EMOJI_FAILURE} {r} "
+                                          "(package already installed)")
             else:
-                message = message.replace(f"{EMOJI_INSTALLING} {r}",f"{EMOJI_SUCCESS} {r}")
+                message = message.replace(f"{EMOJI_INSTALLING} {r}",
+                                          f"{EMOJI_SUCCESS} {r}")
                 success = success + 1
         except subprocess.CalledProcessError:
-            message = message.replace(f"{EMOJI_INSTALLING} {r}",f"{EMOJI_FAILURE} {r}")
+            message = message.replace(f"{EMOJI_INSTALLING} {r}",
+                                      f"{EMOJI_FAILURE} {r}")
         await event.edit(message.rstrip())
     message = message.replace("Installing ", f"Installed {success}/")
     if getConfig("LOGGING"):
-        await event_log(event, "REQUIREMENT INSTALLER", custom_text="{} of {} python "\
-                        "packages queued were installed successfully!".format(success, len(reqs)))
+        await event_log(event, "REQUIREMENT INSTALLER",
+                        custom_text="{} of {} python packages queued "
+                        "were installed successfully!".format(success,
+                                                              len(reqs)))
     await event.edit(message.rstrip())
     return
 
-DESC = "This module allows you to install pip packages. Sometimes extra modules require "\
-       "other pip packages that are not present in requirements.txt. If such happens, "\
-       "the bot can be effectively bricked! It is your duty to read the README file avaliable "\
-       "in the Repo of the module, in case it needs any module!"
+
+DESC = ("This module allows you to install pip packages. Sometimes extra "
+        "modules require other pip packages that are not present in "
+        "requirements.txt. If such happens, the bot can be effectively "
+        "bricked! It is your duty to read the README file avaliable "
+        "in the Repo of the module, in case it needs any module!")
 
 register_cmd_usage("req", "<package names>",
-                   "installs (or attempts to install) the specified pip package names.")
+                   ("installs (or attempts to install) the specified pip "
+                    "package names."))
 
 register_module_desc(DESC)
 register_module_info(
