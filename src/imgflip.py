@@ -179,7 +179,7 @@ async def imgflip(event):
         sec_arg = shlex.split(sec_arg)
         if len(sec_arg) > 20:
             await event.edit("`Too many text caption(s) given. The "
-                             "limit is 20 capions`")
+                             "limit is 20 captions`")
             return
         text_captions = []
         for caption in sec_arg:
