@@ -7,7 +7,7 @@ This is a Reference for which PIP dependencies are needed for each module.
 ### base_64
 None
 
-### face_dice
+### fake_dice
 None
 
 ### imgflip
