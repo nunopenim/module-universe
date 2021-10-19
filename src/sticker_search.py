@@ -8,7 +8,6 @@
 # Special thanks to HitaloSama @github, from HitsukiNetwork, for the
 # idea and partial implementation in his Group Manager Bot, @Hitsuki
 
-VERSION = "1.2.1"
 
 try:
     # >= 4.0.0
@@ -89,5 +88,5 @@ register_module_desc(DESC)
 register_module_info(
     name="Sticker Searcher",
     authors="nunopenim",
-    version=VERSION
+    version="1.2.2"
 )

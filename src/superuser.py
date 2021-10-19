@@ -6,8 +6,6 @@
 # compliance with the PE License
 
 
-VERSION = "1.2.2"
-
 try:
     # >= 4.0.0
     from userbot.version import VERSION as hubot_version
@@ -185,5 +183,5 @@ register_module_desc(DESC)
 register_module_info(
     name="SuperUser",
     authors="nunopenim",
-    version=VERSION
+    version="1.2.3"
 )

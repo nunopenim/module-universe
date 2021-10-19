@@ -5,7 +5,6 @@
 # You may not use this file or any of the content within it, unless in
 # compliance with the PE License
 
-VERSION = "1.2.1"
 
 try:
     # >= 4.0.0
@@ -100,5 +99,5 @@ register_module_desc(DESC)
 register_module_info(
     name="Base64 utilities",
     authors="nunopenim",
-    version=VERSION
+    version="1.2.2"
 )

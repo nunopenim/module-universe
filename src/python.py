@@ -6,7 +6,6 @@
 # You may not use this file or any of the content within it, unless in
 # compliance with the PE License
 
-VERSION = "1.3.1"
 
 try:
     # >= 4.0.0
@@ -74,5 +73,5 @@ register_module_desc(DESCRIPTION)
 register_module_info(
     name="Python Interpreter",
     authors="nunopenim, prototype74",
-    version=VERSION
+    version="1.3.2"
 )

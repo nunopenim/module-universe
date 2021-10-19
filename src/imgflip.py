@@ -8,8 +8,6 @@
 # Imgflip Meme Generator: https://imgflip.com
 
 
-VERSION = "1.0.0"
-
 try:
     # >= 4.0.0
     from userbot.version import VERSION as hubot_version
@@ -221,5 +219,5 @@ register_module_desc(DESC)
 register_module_info(
     name="Imgflip Meme Generator",
     authors="prototype74",
-    version=VERSION
+    version="1.0.1"
 )
