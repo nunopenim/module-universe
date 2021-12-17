@@ -30,12 +30,12 @@ if not isSupportedVersion("5.0.1"):
     raise ValueError(f"Unsupported HyperUBot version ({hubot_version}). "
                       "Minimum required version is 5.0.1")
 
-from userbot.include.aux_funcs import shell_runner  # noqa: E402
 from userbot.sysutils.event_handler import EventHandler  # noqa: E402
 from userbot.sysutils.registration import (register_cmd_usage,  # noqa: E402
                                            register_module_desc,  # noqa: E402
                                            register_module_info)  # noqa: E402
 from logging import getLogger  # noqa: E402
+from subprocess import Popen, PIPE  # noqa: E402
 from sys import executable  # noqa: E402
 
 log = getLogger(__name__)
@@ -43,20 +43,26 @@ ehandler = EventHandler(log)
 
 
 @ehandler.on(command="python", hasArgs=True, outgoing=True)
-async def python(command):
-    commandArray = command.text.split(" ")
-    del (commandArray[0])
-    python_instruction = ""
-    for word in commandArray:
-        python_instruction += word + " "
-    command_for_bash = [executable, " -c ", '"' + python_instruction + '"']
-    cmd_output = shell_runner(command_for_bash)
-    if cmd_output is None:
-        cmd_output = ("Error executing instruction! Most likely you "
-                      "used \" instead of '. This is a known issue.")
-    output = "**Python instruction:** `" + python_instruction + "`\n\n"
-    output += "**Result: **\n`" + cmd_output + "`"
-    await command.edit(output)
+async def python(event):
+    full_cmd_str = event.pattern_match.group(1)
+    py_exec = executable if " " not in executable else '"' + executable + '"'
+    cmd_output = None
+    error_msg = ("Error executing giving instruction(s)! Make sure the code "
+                 "is well-formed")
+    try:
+        quoted_cmd = full_cmd_str.replace("\"", "'")
+        proc = Popen([py_exec, "-c", quoted_cmd], stdout=PIPE, stderr=PIPE)
+        cmd_output, cmd_error = proc.communicate()
+        if proc.returncode or cmd_error:
+            cmd_output = cmd_error
+        cmd_output = ("".join([chr(char) for char in cmd_output])
+                      if cmd_output is not None else error_msg)
+    except Exception as e:
+        log.error(e, exc_info=True)
+        cmd_output = error_msg
+    output = (f"**Python instruction(s):**\n`{full_cmd_str}`\n\n"
+              f"**Result: **\n`{cmd_output}`" )
+    await event.edit(output)
     return
 
 
@@ -67,9 +73,9 @@ DESCRIPTION = (
 register_cmd_usage(
     "python",
     "<instruction(s)>",
-    ("Runs the specified python instruction.\n\n"
-     "**Notice:** Please use ' as the string delimiters instead of \", or "
-     "errors could happen with the command processor.")
+    ("Runs the specified python instruction(s).\n\n"
+     "**Notice:** the command will automatically replace any double quotes "
+     "to single quotes.")
 )
 register_module_desc(DESCRIPTION)
 register_module_info(
