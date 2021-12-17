@@ -11,7 +11,7 @@ None
 None
 
 ### imgflip
-None
+ - requests
 
 ### mention
 None
@@ -31,6 +31,7 @@ None
 ### sticker_search
  - beautifulsoup4
  - lxml
+ - requests
 
 ### superuser
 None
