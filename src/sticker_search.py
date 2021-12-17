@@ -40,7 +40,6 @@ from userbot.sysutils.registration import (register_cmd_usage,  # noqa: E402
 from logging import getLogger  # noqa: E402
 from subprocess import check_call  # noqa: E402
 import requests  # noqa: E402
-import sys  # noqa: E402
 
 if not checkPkgByDist("beautifulsoup4"):
     installPkg("beautifulsoup4")

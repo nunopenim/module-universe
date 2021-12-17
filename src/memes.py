@@ -38,7 +38,6 @@ from userbot.sysutils.event_handler import EventHandler  # noqa: E402
 from userbot.sysutils.registration import (register_cmd_usage,  # noqa: E402
                                            register_module_desc,  # noqa: E402
                                            register_module_info)  # noqa: E402
-from telethon.events import MessageEdited, NewMessage  # noqa: E402
 from logging import getLogger  # noqa: E402
 import random  # noqa: E402
 
