@@ -73,5 +73,5 @@ register_module_desc(DESC)
 register_module_info(
     name="Mention",
     authors="nunopenim",
-    version="1.2.2"
+    version="1.2.3"
 )

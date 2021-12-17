@@ -104,5 +104,5 @@ register_module_desc(DESC)
 register_module_info(
     name="Base64 utilities",
     authors="nunopenim",
-    version="1.2.2"
+    version="1.2.3"
 )

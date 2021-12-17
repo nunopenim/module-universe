@@ -81,5 +81,5 @@ register_module_desc(DESCRIPTION)
 register_module_info(
     name="Python Interpreter",
     authors="nunopenim, prototype74",
-    version="1.3.2"
+    version="2.0.0"
 )

@@ -677,5 +677,5 @@ register_module_desc(DESC)
 register_module_info(
     name="Memes",
     authors="prototype74",
-    version="1.0.0"
+    version="1.0.1"
 )

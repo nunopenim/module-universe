@@ -74,5 +74,5 @@ register_module_desc(DESC)
 register_module_info(
     name="nHentai",
     authors="nunopenim",
-    version="1.2.3"
+    version="1.2.4"
 )

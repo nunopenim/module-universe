@@ -183,5 +183,5 @@ register_module_desc(DESC)
 register_module_info(
     name="SuperUser",
     authors="nunopenim",
-    version="1.2.3"
+    version="1.2.4"
 )
