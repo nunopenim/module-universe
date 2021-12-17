@@ -38,13 +38,13 @@ from userbot.sysutils.registration import (register_cmd_usage,  # noqa: E402
                                            register_module_desc,  # noqa: E402
                                            register_module_info)  # noqa: E402
 from logging import getLogger  # noqa: E402
-from subprocess import check_call  # noqa: E402
-import requests  # noqa: E402
 
-if not checkPkgByDist("beautifulsoup4"):
-    installPkg("beautifulsoup4")
+for pip_pkg in ("beautifulsoup4", "requests"):
+    if not checkPkgByDist(pip_pkg):
+        installPkg(pip_pkg)
 
 from bs4 import BeautifulSoup as bs  # noqa: E402
+import requests  # noqa: E402
 
 log = getLogger(__name__)
 ehandler = EventHandler(log)

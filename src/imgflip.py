@@ -32,6 +32,7 @@ if not isSupportedVersion("5.0.1"):
                       "Minimum required version is 5.0.1")
 
 
+from userbot.include.pip_utils import checkPkgByDist, installPkg  # noqa: E402
 from userbot.sysutils.configuration import getConfig  # noqa: E402
 from userbot.sysutils.event_handler import EventHandler  # noqa: E402
 from userbot.sysutils.registration import (register_cmd_usage,  # noqa: E402
@@ -39,8 +40,12 @@ from userbot.sysutils.registration import (register_cmd_usage,  # noqa: E402
                                            register_module_info)  # noqa: E402
 from logging import getLogger  # noqa: E402
 import os  # noqa: E402
-import requests  # noqa: E402
 import shlex  # noqa: E402
+
+if not checkPkgByDist("requests"):
+    installPkg("requests")
+
+import requests  # noqa: E402
 
 log = getLogger(__name__)
 ehandler = EventHandler(log)
