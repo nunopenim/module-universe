@@ -90,11 +90,16 @@ async def decode_me(event):
 
 
 DESC = "The base_64 module allows you to encode and decode messages in base64."
-register_cmd_usage("b64enc", "<reply/text>", ("Encodes the given message "
-                                              "in base64."))
-register_cmd_usage("b64dec", "<reply/text>", ("Decodes the given message "
-                                              "from base64."))
-
+register_cmd_usage(
+    "b64enc",
+    "<reply/text>",
+    "Encodes the given message in base64."
+)
+register_cmd_usage(
+    "b64dec",
+    "<reply/text>",
+    "Decodes the given message from base64."
+)
 register_module_desc(DESC)
 register_module_info(
     name="Base64 utilities",

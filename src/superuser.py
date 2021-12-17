@@ -164,21 +164,21 @@ async def superuser(command):
     return
 
 
-DESC = ("The Superuser module offers the possibility of more customization "
-        "of the userbot. Be careful however, as this can break your "
-        "userbot. The updater will likely break if you use this module!")
-
-register_cmd_usage("sudo",
-                   "<option> <package_name>",
-                   ("\n`.sudo disclaimer`\n"
-                    "Shows the warning message, and acknowledges the user "
-                    "has read it.\n\n"
-                    "`.sudo remove <package_name>`\n"
-                    "Removes the specified package from the system.\n\n"
-                    "`.sudo convert <package_name>`\n"
-                    "Converts a User Module in a System Module and "
-                    "vice-versa."))
-
+DESC = (
+    "The Superuser module offers the possibility of more customization of the "
+    "userbot. Be careful however, as this can break your userbot. The updater "
+    "will likely break if you use this module!"
+)
+register_cmd_usage(
+    "sudo",
+    "<option> <package_name>",
+    ("\n`.sudo disclaimer`\n"
+     "Shows the warning message, and acknowledges the user has read it.\n\n"
+     "`.sudo remove <package_name>`\n"
+     "Removes the specified package from the system.\n\n"
+     "`.sudo convert <package_name>`\n"
+     "Converts a User Module in a System Module and vice-versa.")
+)
 register_module_desc(DESC)
 register_module_info(
     name="SuperUser",

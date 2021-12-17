@@ -90,20 +90,25 @@ async def unformat(event):
     return
 
 
-DESC = ("The text_utils module offers utilities to edit text, such as "
-        "convert a message to upper case, lower case or unformat it!")
-
-register_cmd_usage("upper",
-                   "<text/reply>",
-                   "Converts the specified text to upper case.")
-register_cmd_usage("lower",
-                   "<text/reply>",
-                   "Decodes the given message from base64.")
-register_cmd_usage("noformat",
-                   None,
-                   ("Unformats the replied message (removes bold, "
-                    "italic, monospace, etc...)."))
-
+DESC = (
+    "The text_utils module offers utilities to edit text, such as convert a "
+    "message to upper case, lower case or unformat it!"
+)
+register_cmd_usage(
+    "upper",
+    "<text/reply>",
+    "Converts the specified text to upper case."
+)
+register_cmd_usage(
+    "lower",
+    "<text/reply>",
+    "Decodes the given message from base64."
+)
+register_cmd_usage(
+    "noformat",
+    None,
+    "Unformats the replied message (removes bold, italic, monospace, etc...)."
+)
 register_module_desc(DESC)
 register_module_info(
     name="Text Utilities",

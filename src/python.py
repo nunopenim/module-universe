@@ -60,15 +60,17 @@ async def python(command):
     return
 
 
-DESCRIPTION = ("This official add-on module is a Python interpreter. You can "
-               "run small instructions.")
-register_cmd_usage("python",
-                   "<instruction(s)>",
-                   ("Runs the specified python instruction.\n\n"
-                    "**Notice:** Please use ' as the string delimiters "
-                    "instead of \", or errors "
-                    "could happen with the command processor."))
-
+DESCRIPTION = (
+    "This official add-on module is a Python interpreter. You can run small "
+    "instructions."
+)
+register_cmd_usage(
+    "python",
+    "<instruction(s)>",
+    ("Runs the specified python instruction.\n\n"
+     "**Notice:** Please use ' as the string delimiters instead of \", or "
+     "errors could happen with the command processor.")
+)
 register_module_desc(DESCRIPTION)
 register_module_info(
     name="Python Interpreter",

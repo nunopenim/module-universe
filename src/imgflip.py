@@ -188,33 +188,33 @@ async def imgflip(event):
     return
 
 
-DESC = ("The Imgflip Meme Generator uses the API by Imgflip to generate "
-        "known meme images with custom captions. This requires an Imgflip "
-        "account to work. An account can be created at "
-        "https://imgflip.com/signup. The API Server may has a rate-limit, so "
-        "try to keep the requests to the server as minimum as possible. "
-        "Up to 20 text captions are supported, as allowed by the API.\n\n"
-        "This module requires the following configs:\n"
-        "IMGFLIP_USER = \"YOUR_IMGFLIP_USERNAME\"\n"
-        "IMGFLIP_PWD = \"YOUR_IMGFLIP_PASSWORD\"")
-register_cmd_usage("imgflip",
-                   "[optional: <options>]",
-                   ("\n`.imgflip`\n"
-                    "Lists popular memes with their IMG IDs and names\n\n"
-                    "`.imgflip <IMG ID> <caption 1> [optional: <caption 2> "
-                    "<caption 3> <caption 4> etc.]`\n"
-                    "Generates custom captions to the target meme image "
-                    "(IMG ID) from caption 1 till 20. For example, caption 1 "
-                    "is in most cases the upper part or left part in an "
-                    "empty field in the meme image while caption 2 is the "
-                    "bottom part or right part in an another empty field in "
-                    "the meme image. However it depends on the meme image, so "
-                    "view the image first before you add captions to it. "
-                    "Sentences should be wrapped by quotes\n\n"
-                    "`.imgflip recent`\n"
-                    "Sends the last generated meme image to the chat"))
-
-
+DESC = (
+    "The Imgflip Meme Generator uses the API by Imgflip to generate known "
+    "meme images with custom captions. This requires an Imgflip account to "
+    "work. An account can be created at https://imgflip.com/signup. The API "
+    "Server may has a rate-limit, so try to keep the requests to the server "
+    "as minimum as possible. Up to 20 text captions are supported, as allowed "
+    "by the API.\n\n"
+    "This module requires the following configs:\n"
+    "IMGFLIP_USER = \"YOUR_IMGFLIP_USERNAME\"\n"
+    "IMGFLIP_PWD = \"YOUR_IMGFLIP_PASSWORD\""
+)
+register_cmd_usage(
+    "imgflip",
+    "[optional: <options>]",
+    ("\n`.imgflip`\n"
+     "Lists popular memes with their IMG IDs and names\n\n"
+     "`.imgflip <IMG ID> <caption 1> [optional: <caption 2> <caption 3> "
+     "<caption 4> etc.]`\n"
+     "Generates custom captions to the target meme image (IMG ID) from "
+     "caption 1 till 20. For example, caption 1 is in most cases the upper "
+     "part or left part in an empty field in the meme image while caption 2 "
+     "is the bottom part or right part in an another empty field in the meme "
+     "image. However it depends on the meme image, so view the image first "
+     "before you add captions to it. Sentences should be wrapped by quotes\n\n"
+     "`.imgflip recent`\n"
+     "Sends the last generated meme image to the chat")
+)
 register_module_desc(DESC)
 register_module_info(
     name="Imgflip Meme Generator",

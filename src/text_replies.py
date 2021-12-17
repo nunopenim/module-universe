@@ -83,12 +83,20 @@ async def insult(event):
     return
 
 
-DESC = ("The text replies module contains programmed sentences that are "
-        "randomly chosen. Check the usage to see what sentences are these.")
-
-register_cmd_usage("hi", None, "Greet people.")
-register_cmd_usage("insult", None, "insults people.")
-
+DESC = (
+    "The text replies module contains programmed sentences that are randomly "
+    "chosen. Check the usage to see what sentences are these."
+)
+register_cmd_usage(
+    "hi",
+    None,
+    "Greet people."
+)
+register_cmd_usage(
+    "insult",
+    None,
+    "insults people."
+)
 register_module_desc(DESC)
 register_module_info(
     name="Text Replies",

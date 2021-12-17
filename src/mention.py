@@ -64,10 +64,11 @@ async def tag_someone(mention):
 
 
 DESC = "The Mention module allows you to mention users under different text!"
-register_cmd_usage("mention", " <tag> <text>",
-                   ("Tags a user under a different text other than their tag "
-                    "text!"))
-
+register_cmd_usage(
+    "mention",
+    "<tag> <text>",
+    "Tags a user under a different text other than their tag text!"
+)
 register_module_desc(DESC)
 register_module_info(
     name="Mention",

@@ -86,16 +86,18 @@ async def req(event):
     return
 
 
-DESC = ("This module allows you to install pip packages. Sometimes extra "
-        "modules require other pip packages that are not present in "
-        "requirements.txt. If such happens, the bot can be effectively "
-        "bricked! It is your duty to read the README file avaliable "
-        "in the Repo of the module, in case it needs any module!")
-
-register_cmd_usage("req", "<package names>",
-                   ("installs (or attempts to install) the specified pip "
-                    "package names."))
-
+DESC = (
+    "This module allows you to install pip packages. Sometimes extra modules "
+    "require other pip packages that are not present in requirements.txt. If "
+    "such happens, the bot can be effectively bricked! It is your duty to "
+    "read the README file avaliable in the Repo of the module, in case it "
+    "needs any module!"
+)
+register_cmd_usage(
+    "req",
+    "<package names>",
+    "installs (or attempts to install) the specified pip package names."
+)
 register_module_desc(DESC)
 register_module_info(
     name="Requirements Installer",

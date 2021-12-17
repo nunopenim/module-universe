@@ -69,18 +69,20 @@ async def fake_dice(rolling):
     return
 
 
-DESC = ("This module allows you to launch a dice with any destination value "
-        "you desire.\n**WARNING:** This module sends and deletes messages "
-        "repeatedly, in order to get the correct value you want. Use at "
-        "your own risk as you could be flagged for spam!")
-
-register_cmd_usage("fakedice",
-                   "<value>",
-                   ("Launches a fake dice with the specified value.\n\n"
-                    "**WARNING:** This module sends and deletes messages "
-                    "repeatedly, in order to get the correct value you want. "
-                    "Use at your own risk as you could be flagged for spam!"))
-
+DESC = (
+    "This module allows you to launch a dice with any destination value you "
+    "desire.\n**WARNING:** This module sends and deletes messages repeatedly, "
+    "in order to get the correct value you want. Use at your own risk as you "
+    "could be flagged for spam!"
+)
+register_cmd_usage(
+    "fakedice",
+    "<value>",
+    ("Launches a fake dice with the specified value.\n\n"
+     "**WARNING:** This module sends and deletes messages repeatedly, in "
+     "order to get the correct value you want. Use at your own risk as you "
+     "could be flagged for spam!")
+)
 register_module_desc(DESC)
 register_module_info(
     name="Fake Dice",

@@ -124,20 +124,24 @@ async def spammer(msg):
     return
 
 
-DESC = ("This module offers tools to spam faster. Although the name and "
-        "infinite possibilities for evil this module can bring, it should "
-        "not be used for evil. It's designed for purposes of joking.\n\n"
-        "**WARNING**: Use it at your own risk. If you abuse this module, "
-        "Telegram can (and will) restrict your account!")
-
-register_cmd_usage("spam",
-                   "<number of times> <message>",
-                   "Spams a message the number of times specified")
-register_cmd_usage("dspam",
-                   "<number of times> <delay> <message>",
-                   ("Spams a message the number of times specified, with an "
-                    "interval of <delay> seconds"))
-
+DESC = (
+    "This module offers tools to spam faster. Although the name and infinite "
+    "possibilities for evil this module can bring, it should not be used for "
+    "evil. It's designed for purposes of joking.\n\n"
+    "**WARNING**: Use it at your own risk. If you abuse this module, Telegram "
+    "can (and will) restrict your account!"
+)
+register_cmd_usage(
+    "spam",
+    "<number of times> <message>",
+    "Spams a message the number of times specified"
+)
+register_cmd_usage(
+    "dspam",
+    "<number of times> <delay> <message>",
+    ("Spams a message the number of times specified, with an interval of "
+     "<delay> seconds")
+)
 register_module_desc(DESC)
 register_module_info(
     name="Spam",

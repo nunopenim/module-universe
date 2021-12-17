@@ -76,14 +76,16 @@ async def stksearch(message):
     return
 
 
-DESC = ("The sticker_search module allows you to search for sticker packs! "
-        "It is powered by Combot.")
-
-register_cmd_usage("stksearch",
-                   "<name>",
-                   ("Searches in Combot's Telegram Sticker Catalogue for "
-                    "sticker packs that contain the specified name."))
-
+DESC = (
+    "The sticker_search module allows you to search for sticker packs! It is "
+    "powered by Combot."
+)
+register_cmd_usage(
+    "stksearch",
+    "<name>",
+    ("Searches in Combot's Telegram Sticker Catalogue for sticker packs that "
+     "contain the specified name.")
+)
 register_module_desc(DESC)
 register_module_info(
     name="Sticker Searcher",

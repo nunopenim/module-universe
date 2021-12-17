@@ -623,40 +623,57 @@ async def upsidedown(event):
     return
 
 
-DESC = ("Meeeeeeeeeeeemes!!!111!!11!!1!\n"
-        "Enjoy the funny commands this module does offer to fool or having "
-        "fun with your friends. This module should be taken with humor, no "
-        "one should feel being offended by this")
-register_cmd_usage("iq",
-                   "[username or id] or reply",
-                   "Check someone's IQ, or your own?")
-register_cmd_usage("idiot",
-                   "[username or id] or reply",
-                   "Uh oh, idiot spotted")
-register_cmd_usage("slap",
-                   "[username or id] or reply",
-                   "Slaps a person")
-register_cmd_usage("punch",
-                   "[username or id] or reply",
-                   "A punch in someone's face lol")
-register_cmd_usage("f",
-                   "emoji or symbol",
-                   "Press F to pay respects")
-register_cmd_usage("oof",
-                   None,
-                   "Very oooooooooooof")
-register_cmd_usage("mock",
-                   "text or reply",
-                   mock_them_all("Mock them all!"))
-register_cmd_usage("reverse",
-                   "text or reply",
-                   ("Read everything from right to left, or from left "
-                    "to right?"))
-register_cmd_usage("flip",
-                   "text or reply",
-                   "Change given text or replied message to upside down")
-
-
+DESC = (
+    "Meeeeeeeeeeeemes!!!111!!11!!1!\n"
+    "Enjoy the funny commands this module does offer to fool or having fun "
+    "with your friends. This module should be taken with humor, no one should "
+    "feel being offended by this"
+)
+register_cmd_usage(
+    "iq",
+    "[username or id] or reply",
+    "Check someone's IQ, or your own?"
+)
+register_cmd_usage(
+    "idiot",
+    "[username or id] or reply",
+    "Uh oh, idiot spotted"
+)
+register_cmd_usage(
+    "slap",
+    "[username or id] or reply",
+    "Slaps a person"
+)
+register_cmd_usage(
+    "punch",
+    "[username or id] or reply",
+    "A punch in someone's face lol"
+)
+register_cmd_usage(
+    "f",
+    "emoji or symbol",
+    "Press F to pay respects"
+)
+register_cmd_usage(
+    "oof",
+    None,
+    "Very oooooooooooof"
+)
+register_cmd_usage(
+    "mock",
+    "text or reply",
+    mock_them_all("Mock them all!")
+)
+register_cmd_usage(
+    "reverse",
+    "text or reply",
+    "Read everything from right to left, or from left to right?"
+)
+register_cmd_usage(
+    "flip",
+    "text or reply",
+    "Change given text or replied message to upside down"
+)
 register_module_desc(DESC)
 register_module_info(
     name="Memes",

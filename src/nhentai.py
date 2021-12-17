@@ -61,12 +61,15 @@ async def text(msg):
     return
 
 
-DESC = ("nHentai module allows you to search for a specific story. Given a "
-        "number, it will return a link to the story!\n\nBy Nuno Penim")
-
-register_cmd_usage("nhentai", "<number>", ("Replies with the URL to the given "
-                                           "story number, if it exists."))
-
+DESC = (
+    "nHentai module allows you to search for a specific story. Given a "
+    "number, it will return a link to the story!\n\nBy Nuno Penim"
+)
+register_cmd_usage(
+    "nhentai",
+    "<number>",
+    "Replies with the URL to the given story number, if it exists."
+)
 register_module_desc(DESC)
 register_module_info(
     name="nHentai",
