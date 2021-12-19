@@ -7,6 +7,9 @@ This is a Reference for which PIP dependencies are needed for each module.
 ### base_64
 None
 
+### cas_interface
+ - requests
+
 ### fake_dice
 None
 
