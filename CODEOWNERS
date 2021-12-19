@@ -1,0 +1,48 @@
+# Project owners
+* @nunopenim @prototype74
+/Licenses
+
+#
+# This part will list all module owners per module individually
+#
+# Base64 utilities module
+/src/base_64.py @nunopenim
+
+# CAS Interface module
+/src/cas_interface.py @nunopenim @prototype74
+
+# Fake Dice module
+/src/fake_dice.py @nunopenim
+
+# Imgflip Meme Generator module
+/src/imgflip.py @prototype74
+
+# Memes module
+/src/memes.py @prototype74
+
+# Mention module
+/src/mention.py @nunopenim
+
+# nHentai module
+/src/nhentai.py @nunopenim
+
+# Python Interpreter module
+/src/python.py @nunopenim @prototype74
+
+# Requirements Installer module
+/src/req_installer.py @githubcatw @nunopenim
+
+# Spam module
+/src/spam.py @nunopenim
+
+# Sticker Searcher
+/src/sticker_search.py @nunopenim
+
+# SuperUser module
+/src/superuser.py @nunopenim
+
+# Text Replies module
+/src/text_replies.py @nunopenim
+
+# Text Utilities module
+/src/test_utils.py @nunopenim
