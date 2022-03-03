@@ -1,4 +1,4 @@
-# Copyright 2021 prototype74 @github
+# Copyright 2021-2022 prototype74 @github
 #
 # Licensed under the PEL (Penim Enterprises License), v1.0
 #
@@ -32,14 +32,18 @@ if not isSupportedVersion("5.0.1"):
     raise ValueError(f"Unsupported HyperUBot version ({hubot_version}). "
                       "Minimum required version is 5.0.1")
 
-
-from userbot.include.aux_funcs import fetch_user  # noqa: E402
 from userbot.sysutils.event_handler import EventHandler  # noqa: E402
 from userbot.sysutils.registration import (register_cmd_usage,  # noqa: E402
                                            register_module_desc,  # noqa: E402
                                            register_module_info)  # noqa: E402
+from userbot.sysutils.sys_funcs import verAsTuple  # noqa: E402
 from logging import getLogger  # noqa: E402
 import random  # noqa: E402
+
+if verAsTuple(hubot_version) >= (7, 0, 0):
+    from userbot.include.aux_funcs import fetch_entity
+else:
+    from userbot.include.aux_funcs import fetch_user as fetch_entity
 
 log = getLogger(__name__)
 ehandler = EventHandler(log)
@@ -408,7 +412,7 @@ UPSIDEDOWN_TABLE = {
 
 @ehandler.on(command="iq", hasArgs=True, outgoing=True)
 async def iq(event):
-    user = await fetch_user(event)
+    user = await fetch_entity(event)
 
     if not user:
         return
@@ -432,7 +436,7 @@ async def iq(event):
 
 @ehandler.on(command="idiot", hasArgs=True, outgoing=True)
 async def idiot_meter(event):
-    user = await fetch_user(event)
+    user = await fetch_entity(event)
 
     if not user:
         return
@@ -457,7 +461,7 @@ async def idiot_meter(event):
 
 @ehandler.on(command="slap", hasArgs=True, outgoing=True)
 async def slap(event):
-    user = await fetch_user(event)
+    user = await fetch_entity(event)
 
     if not user:
         return
@@ -484,7 +488,7 @@ async def slap(event):
 # by @KebapciEBY and @nunopenim
 @ehandler.on(command="punch", hasArgs=True, outgoing=True)
 async def punch_in_yoo_face_lol(event):
-    user = await fetch_user(event)
+    user = await fetch_entity(event)
 
     if not user:
         return
@@ -677,5 +681,5 @@ register_module_desc(DESC)
 register_module_info(
     name="Memes",
     authors="prototype74",
-    version="1.0.1"
+    version="1.1.0"
 )

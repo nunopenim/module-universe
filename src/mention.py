@@ -29,12 +29,18 @@ if not isSupportedVersion("5.0.1"):
     raise ValueError(f"Unsupported HyperUBot version ({hubot_version}). "
                       "Minimum required version is 5.0.1")
 
-from userbot.include.aux_funcs import fetch_user  # noqa: E402
 from userbot.sysutils.event_handler import EventHandler  # noqa: E402
 from userbot.sysutils.registration import (register_cmd_usage,  # noqa: E402
                                            register_module_desc,  # noqa: E402
                                            register_module_info)  # noqa: E402
+from userbot.sysutils.sys_funcs import verAsTuple  # noqa: E402
 from logging import getLogger  # noqa: E402
+
+if verAsTuple(hubot_version) >= (7, 0, 0):
+    from userbot.include.aux_funcs import fetch_entity
+else:
+    from userbot.include.aux_funcs import fetch_user as fetch_entity
+
 
 log = getLogger(__name__)
 ehandler = EventHandler(log)
@@ -43,7 +49,7 @@ STR_MENT = "[{}](tg://user?id={})"
 
 @ehandler.on(command="mention", hasArgs=True, outgoing=True)
 async def tag_someone(mention):
-    user = await fetch_user(mention)
+    user = await fetch_entity(mention)
     if user is None:
         await mention.edit("`Invalid user specified!`")
         return
@@ -73,5 +79,5 @@ register_module_desc(DESC)
 register_module_info(
     name="Mention",
     authors="nunopenim",
-    version="1.2.3"
+    version="1.3.0"
 )
