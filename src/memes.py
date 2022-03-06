@@ -537,11 +537,14 @@ async def press_f_to_pay_respects(event):
     return
 
 
-@ehandler.on(command="oof", outgoing=True)
+@ehandler.on(command="oof", hasArgs=True, outgoing=True)
 async def oof(event):
+    arg = event.pattern_match.group(1)
     oof = "oof"
+    if arg.lower() == "up":
+        oof = oof.upper()
     for _ in range(14):
-        oof = "o" + oof
+        oof = ("O" if arg.lower() == "up" else "o") + oof
         await event.edit(oof)  # Very big oof
     return
 
@@ -659,7 +662,7 @@ register_cmd_usage(
 )
 register_cmd_usage(
     "oof",
-    None,
+    "[optional: \"up\" to change output to upper text]",
     "Very oooooooooooof"
 )
 register_cmd_usage(
